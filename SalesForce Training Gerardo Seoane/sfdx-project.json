@@ -5,7 +5,7 @@
       "default": true
     }
   ],
-  "name": "test",
+  "name": "SalesForce Training Gerardo Seoane",
   "namespace": "",
   "sfdcLoginUrl": "https://login.salesforce.com",
   "sourceApiVersion": "52.0"
