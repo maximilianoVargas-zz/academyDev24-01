@@ -1,0 +1,136 @@
+<aura:component implements="force:appHostable" controller="FormController">
+  <!-- atributos correspondientes a los campos del form -->
+  <aura:attribute name="num" type="Integer" />
+  <aura:attribute name="name" type="String" />
+  <aura:attribute name="height" type="Integer" />
+  <aura:attribute name="gender" type="String" />
+  <aura:attribute name="haircolor" type="String" />
+  <aura:attribute name="eyescolor" type="String" />
+  <aura:attribute name="url" type="String" />
+  <aura:attribute name="planet" type="String" />
+  <aura:attribute name="character_number" type="Integer" />
+
+  <!-- atributos para deshabilitar los campos no vacios del form -->
+  <aura:attribute name="numBlocked" type="Boolean" default="false" />
+  <aura:attribute name="nameBlocked" type="Boolean" default="false" />
+  <aura:attribute name="heightBlocked" type="Boolean" default="false" />
+  <aura:attribute name="genderBlocked" type="Boolean" default="false" />
+  <aura:attribute name="haircolorBlocked" type="Boolean" default="false" />
+  <aura:attribute name="eyescolorBlocked" type="Boolean" default="false" />
+  <aura:attribute name="urlBlocked" type="Boolean" default="false" />
+  <aura:attribute name="planetBlocked" type="Boolean" default="false" />
+  <aura:attribute
+    name="character_numberBlocked"
+    type="Boolean"
+    default="false"
+  />
+
+  <div>
+    <!-- formulario -->
+      
+    <form class="slds-form_stacked">
+      <!-- campo para ingresar el numero de personaje y el boton para consultar -->
+      <lightning:input
+        id="id1"
+        type="number"
+        min="1"
+        step="1"
+        messageWhenRangeUnderflow="Enter an valid id"
+                       label="id"
+        name="numinput"
+        placeholder="Enter the id"
+        value="{!v.num}"
+        required="true"
+      />
+      <lightning:button
+        label="Search"
+        class="slds-m-top_medium"
+        variant="brand"
+        onclick="{!c.searchClick}"
+      />
+      <br />
+
+      <!-- campos para recibir la información del personaje consultado y rellenar los que estan vacios -->
+      <lightning:input
+        id="idNombre"
+        type="text"
+        name="nombreinput"
+                       label="Nombre"
+        placeholder="Enter name"
+        value="{!v.name}"
+        disabled="{!v.nameBlocked}"
+      />
+      <lightning:input
+        id="idAltura"
+        type="number"
+        name="alturatinput"
+                       label="Estatura"
+        placeholder="Enter height"
+        value="{!v.height}"
+        disabled="{!v.heightBlocked}"
+      />
+      <lightning:input
+        id="idGenero"
+        type="text"
+                       label="Genero"
+        name="generoinput"
+        placeholder="Enter gender"
+        value="{!v.gender}"
+        disabled="{!v.genderBlocked}"
+      />
+      <lightning:input
+        id="idColorCabello"
+        type="text"
+                       label="Color de cabello"
+        name="colorCabelloinput"
+        placeholder="Enter hair color"
+        value="{!v.haircolor}"
+        disabled="{!v.haircolorBlocked}"
+      />
+      <lightning:input
+        id="idColorOjos"
+        type="text"
+                       label="Color de ojos"
+        name="colorOjosinput"
+        placeholder="Enter eyes color"
+        value="{!v.eyescolor}"
+        disabled="{!v.eyescolorBlocked}"
+      />
+      <lightning:input
+        id="idURL"
+        type="text"
+        label="URL"
+                       name="urlinput"
+        placeholder="Enter the url"
+        value="{!v.url}"
+        disabled="{!v.urlBlocked}"
+      />
+      <lightning:input
+        id="idPlaneta"
+        type="text"
+                       label="Planeta"
+        name="planetainput"
+        placeholder="Enter the planet"
+        value="{!v.planet}"
+        disabled="{!v.planetBlocked}"
+      />
+      <lightning:input
+        id="idNumeroPersonaje"
+        type="number"
+                       label="Numero de personaje"
+        name="numeroPersonajeinput"
+        placeholder="Enter the character number"
+        value="{!v.character_number}"
+        disabled="{!v.character_numberBlocked}"
+      />
+
+      <!-- boton para guardar el personaje -->
+      <lightning:button
+        label="Save"
+        class="slds-m-top_medium"
+        variant="brand"
+        onclick="{!c.saveClick}"
+      />
+    </form>
+  </div>
+</aura:component>
