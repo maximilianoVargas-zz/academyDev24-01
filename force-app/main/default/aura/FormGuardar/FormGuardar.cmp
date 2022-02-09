@@ -1,5 +1,0 @@
-<aura:component>
-    <div display="false">
-        <p>aca van los demas campos</p>
-    </div>	
-</aura:component>
