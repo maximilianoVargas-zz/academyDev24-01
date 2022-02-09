@@ -1,7 +1,7 @@
 @isTest
 public with sharing class AccountManageTest {
 
-    private static final Integer ACCOUNT_NUMBER = 300;
+    private static final Integer ACCOUNT_NUMBER = 20;
     
     @testSetup
     public static void makeData(){
@@ -38,11 +38,15 @@ public with sharing class AccountManageTest {
             FROM Opportunity
             WHERE AccountId IN :accounts
         ];
-        system.assertEquals(ACCOUNT_NUMBER, opportunities.size());
+        system.assertEquals(
+            ACCOUNT_NUMBER, 
+            opportunities.size(), 
+            'Exactly ACCOUNT_NUMBER Opportunities must have been created'
+        );
     }
 
     @isTest
-    public static void testCreateAccount() {
+    public static void whenAccountIsCreated_ThenWeCanThenGetItsData() {
         Test.startTest();
         String id = AccountManage.createAccount('name', 100, 'NIT', '12345678');
         Test.stopTest();
@@ -53,12 +57,12 @@ public with sharing class AccountManageTest {
             FROM Account
             WHERE Name = 'name' AND NumberOfEmployees = 100 AND Identification_Type__c = 'NIT' AND Document_Number__c = '12345678'
         ];
-        System.assertEquals(1, accounts.size());
-        System.assertEquals(id, accounts.get(0).Id);
+        System.assertEquals(1, accounts.size(), 'The account must have been created');
+        System.assertEquals(id, accounts.get(0).Id, 'The account must have been created');
     }
 
     @isTest
-    public static void testUpdateAccount() {
+    public static void whenExistentAccountIsUpdated_ThenWeCanSeeTheUpdatedInfo() {
         // Get any account
         Account account = [
             SELECT Id, Identification_Type__c, Document_Number__c
@@ -79,19 +83,20 @@ public with sharing class AccountManageTest {
             FROM Account
             WHERE Name = 'updated' AND NumberOfEmployees = 101
         ];
-        system.assertEquals(1, accounts.size());
-        system.assert(result);
+        system.assertEquals(1, accounts.size(), 'The account must have been updated');
+        system.assert(result, 'The account must have been updated');
     }
 
     @isTest
-    public static void testUpdateInvalidAccount() {
+    public static void whenNonexistentAccountIsUpdated_ThenUpdateFails() {
         Test.startTest();
         Boolean result = AccountManage.updateAccount('updated', 101, 'i dont exist', 'i dont exist');
-        system.assertEquals(false, result);
+        Test.stopTest();
+        system.assertEquals(false, result, 'The update must fail because the account doesn`t exist');
     }
 
     @isTest
-    public static void testConsultAccount() {
+    public static void whenExistentAccountIsConsulted_ThenWeGetItsData() {
         // Get any account
         Account account = [
             SELECT ID, Name, NumberOfEmployees, Identification_Type__c, Document_Number__c
@@ -105,22 +110,23 @@ public with sharing class AccountManageTest {
         );
         Test.stopTest();
         // Assertions
-        system.assertEquals(account.ID, consultedAccount.ID);
-        system.assertEquals(account.Name, consultedAccount.Name);
-        system.assertEquals(account.NumberOfEmployees, consultedAccount.NumberOfEmployees);
-        system.assertEquals(account.Identification_Type__c, consultedAccount.Identification_Type__c);
-        system.assertEquals(account.Document_Number__c, consultedAccount.Document_Number__c);
+        system.assertEquals(account.ID, consultedAccount.ID, 'The consulted account must exist');
+        system.assertEquals(account.Name, consultedAccount.Name, 'The consulted account must exist');
+        system.assertEquals(account.NumberOfEmployees, consultedAccount.NumberOfEmployees, 'The consulted account must exist');
+        system.assertEquals(account.Identification_Type__c, consultedAccount.Identification_Type__c, 'The consulted account must exist');
+        system.assertEquals(account.Document_Number__c, consultedAccount.Document_Number__c, 'The consulted account must exist');
     }
 
     @isTest
-    public static void testConsultInvalidAccount() {
+    public static void whenNonexistentAccountIsConsulted_ThenNullIsReturned() {
         Test.startTest();
         Account result = AccountManage.consultAccount('i dont exist', 'i dont exist');
-        system.assertEquals(null, result);
+        Test.stopTest();
+        system.assertEquals(null, result, 'The consult must fail because the Account doesn`t exist');
     }
 
     @isTest
-    public static void testDeleteAccount() {
+    public static void whenAccountIsDeleted_ThenWeCanNoLongerFindItInDatabase() {
         // Get any account
         Account account = [
             SELECT ID, Identification_Type__c, Document_Number__c
@@ -141,13 +147,14 @@ public with sharing class AccountManageTest {
             WHERE Identification_Type__c = :account.Identification_Type__c 
                 AND Document_Number__c = :account.Document_Number__c
         ];
-        system.assertEquals(0, accounts.size());
+        system.assertEquals(0, accounts.size(), 'The account must have been deleted from the database');
     }
 
     @isTest
-    public static void testDeleteInvalidAccount() {
+    public static void whenNonexistentAccountIsDeleted_ThenDeleteFails() {
         Test.startTest();
         Boolean result = AccountManage.deleteAccount('i dont exist', 'i dont exist');
-        system.assertEquals(false, result);
+        Test.stopTest();
+        system.assertEquals(false, result, 'The delete must fail because the Account doesn`t exist');
     }
 }

@@ -17,18 +17,35 @@ public with sharing class AccountTriggerTest {
 
     @isTest
     static void whenAccountWithSameIdentificationTypeAndDocumentNumberExists_ThenInsertFails() {
-        // Create repeated account
-        Account acc = new Account(
+        // Create repeated accounts
+        List<Account> repeatedAccounts = new List<Account>();
+        repeatedAccounts.add(new Account(
             Name = 'Prueba',
             Identification_Type__c = 'NIT',
             Document_Number__c = '1234567' + '0'
-        );
+        ));
+        repeatedAccounts.add(new Account(
+            Name = 'Prueba',
+            Identification_Type__c = 'NIT',
+            Document_Number__c = '1234567' + '1'
+        ));
         
         Test.startTest();
-        Database.SaveResult result = Database.insert(acc, false);
+        List<Database.SaveResult> results = Database.insert(repeatedAccounts, false);
         Test.stopTest();
 
-        system.assert( !result.isSuccess() );
+        for(Database.SaveResult result : results) {
+            system.assert(
+                !result.isSuccess(),
+                'The insert must fail'
+            );
+            system.assert(result.getErrors().size() == 1, 'Exactly 1 error must ocurr');
+            system.assertEquals( 
+                'Could not insert/update the account because there' +
+                    'already exist accounts that have an Identification Type and Document Number',
+                    result.getErrors().get(0).getMessage()
+            );
+        }
     }
 
     @isTest
@@ -44,13 +61,13 @@ public with sharing class AccountTriggerTest {
         Database.SaveResult result = Database.insert(acc, false);
         Test.stopTest();
 
-        system.assert( result.isSuccess() );
+        system.assert(result.isSuccess(), 'The insert must be successful');
         List<Account> accounts = [
             SELECT Id
             FROM Account
             WHERE Document_Number__c = '87654321' AND Identification_Type__c = 'NIT'
         ];
-        System.assert(accounts.size() == 1);
+        System.assert(accounts.size() == 1, 'The account must have been created');
     }
 
     @isTest
@@ -67,13 +84,13 @@ public with sharing class AccountTriggerTest {
         Database.SaveResult result = Database.update(acc, false);
         Test.stopTest();
 
-        system.assert( result.isSuccess() );
+        system.assert(result.isSuccess(), 'The update must be successful');
         List<Account> accounts = [
             SELECT Id
             FROM Account
             WHERE Document_Number__c = '87654321' AND Identification_Type__c = 'NIT'
         ];
-        System.assert(accounts.size() == 1);
+        System.assert(accounts.size() == 1, 'The account must have been updated');
     }
 
     @isTest
@@ -90,6 +107,12 @@ public with sharing class AccountTriggerTest {
         Database.SaveResult result = Database.update(acc, false);
         Test.stopTest();
 
-        system.assert( !result.isSuccess() );
+        system.assert(!result.isSuccess(), 'The update must fail');
+        system.assert( result.getErrors().size() == 1, 'Exactly 1 error must ocurr');
+        system.assertEquals( 
+            'Could not insert/update the account because there' +
+                'already exist accounts that have an Identification Type and Document Number',
+            result.getErrors().get(0).getMessage()
+        );
     }
 }
