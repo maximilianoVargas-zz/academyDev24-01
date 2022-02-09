@@ -1,1 +1,0 @@
-{"animals": ["animal raro1", "hungry hippo", "squeaky squirrel"]}
