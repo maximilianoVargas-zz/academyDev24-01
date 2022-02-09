@@ -1,0 +1,7 @@
+//SELECT Id,Name,NumberOfEmployees from Account WHERE NumberOfEmployees>100
+
+//SELECT Id,Name,NumberOfEmployees from Account WHERE NumberOfEmployees>200 ORDER BY Name
+
+//SELECT Id,Name,NumberOfEmployees from Account WHERE NumberOfEmployees>200 ORDER BY NumberOfEmployees 
+
+//SELECT Id,Name,NumberOfEmployees from Account WHERE NumberOfEmployees>200 ORDER BY NumberOfEmployees desc limit 10
