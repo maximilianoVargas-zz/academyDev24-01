@@ -7,6 +7,6 @@
   ],
   "name": "AcademyDevReview",
   "namespace": "",
-  "sfdcLoginUrl": "https://login.salesforce.com",
+  "sfdcLoginUrl": "https://mindful-hawk-1qej8q-dev-ed.my.salesforce.com/",
   "sourceApiVersion": "52.0"
 }
