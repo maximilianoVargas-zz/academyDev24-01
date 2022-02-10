@@ -38,3 +38,12 @@ $RECYCLE.BIN/
 
 # Local environment variables
 .env
+
+jQueryMobile/
+vfimagetest/
+jQuery.js
+jQuery.resource-meta.xml
+jQueryMobile.resource-meta.xml
+vfimagetest.resource-meta.xml
+
+

@@ -1,4 +1,4 @@
-<apex:page>
+<apex:page >
     <apex:pageBlock title="User Status">
         <apex:pageBlockSection columns="1">
             {! $User.FirstName & ' ' & $User.LastName }

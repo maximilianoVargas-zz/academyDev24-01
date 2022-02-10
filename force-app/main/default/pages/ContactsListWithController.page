@@ -1,5 +1,5 @@
 <apex:page controller="ContactsListWithController">
-    <apex:form>
+    <apex:form >
         <apex:pageBlock title="Contacts List" id="contacts_list">
             <!-- Contacts List -->
             <apex:pageBlockTable value="{! contacts }" var="ct">

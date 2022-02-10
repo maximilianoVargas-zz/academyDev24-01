@@ -1,5 +1,5 @@
 <apex:page standardController="Contact" recordSetVar="contacts">
-    <apex:form>
+    <apex:form >
         <apex:pageBlock title="Contacts List" id="contacts_list">
             Filter:
             <apex:selectList value="{! filterId }" size="1">
@@ -16,8 +16,7 @@
             <!-- Pagination -->
             <table style="width: 100%"><tr>
                 <td>
-                    Page: <apex:outputText
-                    value=" {!PageNumber} of {! CEILING(ResultSize / PageSize) }"/>
+                    Page: <apex:outputText value=" {!PageNumber} of {! CEILING(ResultSize / PageSize) }"/>
                 </td>
                 <td align="center">
                     <!-- Previous page -->

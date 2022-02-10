@@ -1,6 +1,6 @@
 <apex:page standardController="Account">
     <apex:pageBlock title="Account Summary">
-        <apex:pageBlockSection>
+        <apex:pageBlockSection >
             Id: {! Account.Id } <br/>
             Name: {! Account.Name } <br/>
             Phone: {! Account.Phone } <br/>
