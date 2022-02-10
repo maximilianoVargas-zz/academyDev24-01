@@ -5,10 +5,12 @@ public with sharing class CaseTriggerHandler {
             for (Case aCase : cases) {
                 casesByParentId.put(aCase.ParentId, aCase);
             }
-            List<Case> allCases = [SELECT Id,ParentId, Result__c
-                                FROM Case
-                                WHERE Id 
-                                IN :casesByParentId.keySet()];
+            List<Case> allCases = [
+                SELECT Id,ParentId, Result__c
+                FROM Case
+                WHERE Id 
+                IN :casesByParentId.keySet()
+                ];
 
             List<Case> updatedCases = new List<Case>();
             for (Case aCase : allCases) {
