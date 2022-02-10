@@ -19,7 +19,6 @@ public with sharing class CaseTriggerHandler {
                 Case aCase = casesByContactId.get(aTask.WhoId);
                 aTask.WhatId = aCase.Id;
             }
-
             update tasks;
     }
 

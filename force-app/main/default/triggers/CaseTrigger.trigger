@@ -1,5 +1,4 @@
 trigger CaseTrigger on Case (after insert, after update) {
-
     if(Trigger.isAfter){
         if(Trigger.isInsert){
             CaseTriggerHandler.realatedTask(Trigger.new);
@@ -8,5 +7,4 @@ trigger CaseTrigger on Case (after insert, after update) {
             CaseTriggerHandler.updateRelatedCases(Trigger.new);
         }
     }
-
 }

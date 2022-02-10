@@ -132,7 +132,7 @@ public with sharing class CaseTriggerTest {
             SELECT id, Result__c FROM Case WHERE Result__c = ''
         ];
 
-        System.assertEquals(40, cases.size(), 'Los casos relacionados no fueron actualizados');
+        System.assertEquals(40, cases.size(), 'Los casos relacionados no fueron actualizados');   
         
     }
 }
