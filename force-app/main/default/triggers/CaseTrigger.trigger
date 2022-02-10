@@ -1,4 +1,11 @@
-trigger CaseTrigger on Case (after update) {
+trigger CaseTrigger on Case (after update, after insert) {
+    if(Trigger.isInsert){
+        CaseTriggerHandler.checkCalls(Trigger.new);
+    }
+
+
+
+
     if(Trigger.isUpdate){
         if(Trigger.isAfter){
             List<Case> cases = new List<Case>();
