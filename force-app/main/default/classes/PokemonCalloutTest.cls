@@ -29,6 +29,6 @@ private class PokemonCalloutTest {
                 System.debug('Name: '+ tempMap.get('name'));
                 aPokeName = String.valueOf(tempMap.get('name'));
             }
-        System.assertEquals('pikachu', aPokeName);          
+        System.assertEquals('pikachu', aPokeName, 'Pokemon name does not match');          
     }   
 }
