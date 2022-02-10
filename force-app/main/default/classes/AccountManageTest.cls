@@ -20,7 +20,7 @@ public with sharing class AccountManageTest {
                                   WHERE name like 'Opportunity%'
                                   LIMIT 1];
 
-        System.assertEquals('Opportunity Gerardo Test',anOpportinity.Name.Substring(0,24), 'The ids not match');
-        
+        System.assertEquals('Opportunity Gerardo Test',anOpportinity.Name.Substring(0,24), 'The Name not match');
+        System.assertEquals('Prospection',anOpportinity.StageName, 'The StageName not match');
     }
 }
