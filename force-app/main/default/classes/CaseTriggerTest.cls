@@ -133,6 +133,5 @@ public with sharing class CaseTriggerTest {
         ];
 
         System.assertEquals(40, cases.size(), 'Los casos relacionados no fueron actualizados');   
-        
     }
 }
