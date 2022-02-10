@@ -1,0 +1,23 @@
+<apex:page controller="AccountMessageController">
+    <apex:form >
+        <apex:pageBlock Title="Selección de cuentas">
+            <apex:pageBlockSection Title="Cuentas">
+                <apex:pageBlockTable value="{!accounts}" var="acc" id="table" title="Cuentas">
+                    <apex:column >
+                        <apex:facet name="header">
+                            <apex:inputCheckbox onclick="selectAllCheckboxes(this,'inputId')"/>
+                        </apex:facet>
+                        <apex:inputCheckbox value="{!acc.selected}" id="inputId"/>
+                    </apex:column>
+                    <apex:column value="{!acc.account.Id}" />
+                </apex:pageBlockTable>
+            </apex:pageBlockSection>
+        </apex:pageBlock>
+        <apex:pageBlock >
+            <apex:inputText value="{!message.Description__c}" label="Mensaje">Ingrese el mensaje a enviar</apex:inputText>
+        </apex:pageBlock>
+        <apex:pageBlock >
+            <apex:commandButton action="{!sendMessage}" value="Enviar mensaje"/>
+        </apex:pageBlock>
+    </apex:form>
+</apex:page>
