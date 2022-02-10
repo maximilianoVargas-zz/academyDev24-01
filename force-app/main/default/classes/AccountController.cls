@@ -5,7 +5,11 @@ public with sharing class AccountController {
         String str = null;
         String randomNumber = null;
 
-        List<Account> accounts = [select Name,DocumentNumber__c,IdentificationType__c from Account where Name like '%Cuenta de entrenamiento%' limit 200];
+        List<Account> accounts =[
+            SELECT Name,DocumentNumber__c,IdentificationType__c 
+            FROM Account WHERE Name LIKE '%Cuenta de entrenamiento%' 
+            LIMIT 200
+        ];
         for (Account account : accounts){
             str=string.valueof(Math.abs(Crypto.getRandomLong()));
             randomNumber=str.substring(0, len);

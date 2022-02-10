@@ -11,8 +11,6 @@ public with sharing class PokemonWork1 {
 
         if (response.getStatusCode()==200) {
             pokemon=PokemonConverter.parse(response.getBody());
-            System.debug(pokemon);
-            System.debug(response.getBody());
         }
 
         return pokemon;

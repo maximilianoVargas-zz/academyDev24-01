@@ -1,6 +1,5 @@
-public with sharing class TriggerExercise1 {
+public with sharing class CaseTriggerHandler {
 
-    //TODO - REALIZAR PRUEBAS UNITARIAS
     public static void relatedTask(List<Case> cases) {
         Map<Id,Case> caseByContactId=new Map<Id,Case>();
 
@@ -20,11 +19,10 @@ public with sharing class TriggerExercise1 {
 
         - Seleccionar todas las tareas que tengan un what id nulo y whoid esten relacionadas con el id de contacto relacionado con algun caso y fecha de creacion de la tare sea mayor en dos minutos a la fecha actual
         */
-        List<Task> tasks=
-        [select Id, WhoId from Task 
-        where WhatId=null
-        and WhoId in :caseByContactId.keySet()
-        and CreatedDate >= :aDate
+        List<Task> tasks=[
+            SELECT Id, WhoId 
+            FROM Task 
+            WHERE WhatId=null AND WhoId in :caseByContactId.keySet() AND CreatedDate >= :aDate
         ];
 
         for (Task aTask: tasks){
@@ -35,6 +33,28 @@ public with sharing class TriggerExercise1 {
         update tasks;
     }
 
+    public static void updatedRelatedParentCase(List<Case> cases) {
+        List<Case> parentCaseToUpdate=new List<Case>();
+        Map<Id,Case> parentMap=new Map<Id,Case>();
+
+        for (Case aCase : cases)  {
+            Case parentCase=[
+                SELECT Id, Result__c 
+                FROM Case 
+                WHERE Id=:aCase.ParentId
+            ];
+            ID acaseId=aCase.Id;
+            parentMap.put(acaseId,parentCase);
+        }
+
+        for (Case aCase : cases) {
+            Case parentCase=parentMap.get(aCase.Id);
+            parentCase.Result__c = aCase.Result__c;
+            parentCaseToUpdate.add(parentCase);
+        }
+
+        update parentCaseToUpdate;
+    }
 
 }
 /*

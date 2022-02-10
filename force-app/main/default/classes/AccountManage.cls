@@ -1,31 +1,42 @@
 public with sharing class AccountManage {
-    public static Object createAccount(String name,Integer employeesNumber,String identificationType, String documentNumber){
+    public static Id createAccount(String name,Integer employeesNumber,String identificationType, String documentNumber){
         Account account=new Account();
         account.Name=name;
         account.NumberOfEmployees=employeesNumber;
         account.IdentificationType__c=identificationType;
         account.DocumentNumber__c=documentNumber;
         insert account;
-        System.debug(account.Id);
         return account.Id;
     }
 
     public static Boolean updateAccount(String name,Integer employeesNumber,String identificationType, String documentNumber){
-        Account accountFound=[SELECT Id,Name,Active__c FROM Account WHERE IdentificationType__c = :identificationType and DocumentNumber__c = :documentNumber];
+        Account accountFound=[
+            SELECT Id,Name,Active__c 
+            FROM Account 
+            WHERE IdentificationType__c = :identificationType AND DocumentNumber__c = :documentNumber
+        ];
         accountFound.Name=name;
         accountFound.NumberOfEmployees=employeesNumber;
-        update accountFound;
-        return true;
+        Database.SaveResult result = Database.update(accountFound,false);
+        return result.isSuccess();
     }
 
     public static Boolean deleteAccount(String identificationType, String documentNumber){
-        Account accountFound=[SELECT Id,Name,Active__c FROM Account WHERE IdentificationType__c = :identificationType and DocumentNumber__c = :documentNumber];
-        delete accountFound;
-        return true;
+        Account accountFound=[
+            SELECT Id,Name,Active__c 
+            FROM Account 
+            WHERE IdentificationType__c = :identificationType AND DocumentNumber__c = :documentNumber
+        ];
+        Database.DeleteResult result=Database.delete(accountFound,false);
+        return result.isSuccess();
     }
 
     public static Account consultAccount(String identificationType,String documentNumber){
-        Account accountFound=[SELECT Id,Name,Active__c FROM Account WHERE IdentificationType__c = :identificationType and DocumentNumber__c = :documentNumber];
+        Account accountFound=[
+            SELECT Id,Name,Active__c 
+            FROM Account 
+            WHERE IdentificationType__c = :identificationType AND DocumentNumber__c = :documentNumber
+        ];
         return accountFound;
     }
 

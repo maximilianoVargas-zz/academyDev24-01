@@ -1,14 +1,30 @@
-@RestResource(urlMapping='/Accounts/contacts')
+@RestResource(urlMapping='/Accountjd/*')
 global with sharing class AccountApi {
     @HttpGet
-    global static Account getAccount(){
+    global static Account getAccountById(){
+        RestRequest request=RestContext.request;
+        String accountId=request.requestURI.substring(request.requestURI.lastIndexOf('/')+1);
+        System.debug('account id: '+ accountId);
 
-        List<Account> accounts = new List<Account>();
-        accounts=[SELECT Id, Name ,(SELECT Id, Name FROM Contacts) FROM Account limit 5];
+        Account account =[
+            SELECT Id,Name,(
+                SELECT Id,FirstName,Level__c 
+                FROM Contacts  
+                WHERE AccountId=:accountId AND Level__c='Primary'
+            ),(
+                SELECT Description,CreatedDate 
+                FROM Opportunities 
+                WHERE AccountId=:accountId ORDER BY CreatedDate DESC 
+                LIMIT 1
+            ) 
+            FROM Account 
+            WHERE Id=:accountId
+        ];
 
-        return accounts[0];
+        return account;
     }
 }
+
 /*
 First exercise:
 
