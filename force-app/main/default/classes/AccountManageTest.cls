@@ -22,5 +22,6 @@ public with sharing class AccountManageTest {
 
         System.assertEquals('Opportunity Gerardo Test',anOpportinity.Name.Substring(0,24), 'The Name not match');
         System.assertEquals('Prospection',anOpportinity.StageName, 'The StageName not match');
+        System.assert(anOpportinity.CloseDate != null, 'The Close Date is Empty');
     }
 }
