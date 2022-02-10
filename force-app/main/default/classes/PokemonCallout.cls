@@ -6,7 +6,6 @@ public class PokemonCallout {
         request.setEndpoint('https://pokeapi.co/api/v2/pokemon/' + pokeid);
         request.setMethod('GET');
         HttpResponse response = http.send(request);
-        String aPokeName = '';
         if(response.getStatusCode() == 200) {
             Map<String, Object> results = (Map<String, Object>)JSON.deserializeUntyped(response.getBody());
 
@@ -16,7 +15,6 @@ public class PokemonCallout {
             for(Object pokemon: pokemons) {
                 Map<String,Object> tempMap = (Map<String,Object>)pokemon;
                 System.debug('Name: '+ tempMap.get('name'));
-                aPokeName = String.valueOf(tempMap.get('name'));
             }
 
         }
