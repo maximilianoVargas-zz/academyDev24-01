@@ -27,11 +27,11 @@ public with sharing class CaseTriggerHandler {
         }
     }
 
-    public static void changeAssociatedCase(List<Case> newCases, List<Case> oldCases) {
+    public static void changeAssociatedCase(Map<Id,Case> newCases, Map<Id,Case> oldCases) {
         Map<String, String> resultToUpdateByCaseId = new Map<String, String>();
-        for (Integer i = 0; i < newCases.size(); i++) {
-            if(newCases.get(i).Result__c != oldCases.get(i).Result__c) {
-                resultToUpdateByCaseId.put(newCases.get(i).ParentId, newCases.get(i).Result__c);
+        for (Id caseId : newCases.keySet()) {
+            if(newCases.get(caseId).Result__c != oldCases.get(caseId).Result__c) {
+                resultToUpdateByCaseId.put(newCases.get(caseId).ParentId, newCases.get(caseId).Result__c);
             }
         }
         List<Case> parentCasesToUpdate = [

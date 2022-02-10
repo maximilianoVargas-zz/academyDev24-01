@@ -141,9 +141,6 @@ public with sharing class CaseTriggerTest {
         for (Case parentCase : parentCases) {
             System.assertEquals('I changed', parentCase.Result__c, 'The parent Result__c field must have changed');
         }
-        for (Case childCase : [SELECT Result__c FROM Case WHERE ParentId != NULL]) {
-            System.assertEquals('I changed', childCase.Result__c, 'The child Result__c field must have changed');
-        }
     }
 
     @isTest
@@ -171,9 +168,6 @@ public with sharing class CaseTriggerTest {
         ];
         for (Case parentCase : parentCases) {
             System.assertEquals(null, parentCase.Result__c, 'The parent Result__c field must have changed');
-        }
-        for (Case childCase : [SELECT Result__c FROM Case WHERE ParentId != NULL]) {
-            System.assertEquals(null, childCase.Result__c, 'The child Result__c field must have changed');
         }
     }
 }
