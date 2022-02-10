@@ -61,10 +61,78 @@ public with sharing class CaseTriggerTest {
             SELECT Id FROM Task WHERE WhatId IN :caseById.keySet()
         ];
 
-        System.debug('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>' + tasksWithInsertedCases.size());
-       
        System.assertEquals(20, tasksWithInsertedCases.size(), 'La cantidad de Tareas no coincide con la cantidad de casos');
 
     }
 
+
+    @isTest
+    public static void whenUpdateResultFieldInParentCaseUpdateRelatedCases(){
+        List<Case> newCases = new List<Case>();
+        List<Case> relatedCases = new List<Case>();
+        for(Integer i = 0; i<20; i++){
+            newCases.add(new Case(
+                Result__c = 'initial result'
+            ));
+        }
+        insert newCases;
+
+        for(Case aCase: newCases){
+            relatedCases.add(new Case(
+                Result__c = 'Another result',
+                ParentId = aCase.Id
+            ));
+        }
+        insert relatedCases;
+
+        for(Case aCase: newCases){
+            aCase.Result__c = 'updated result';
+        }
+
+        Test.startTest();
+        update newCases;
+        Test.stopTest();
+
+        List<Case> cases = [
+            SELECT id, Result__c FROM Case WHERE Result__c = 'updated result'
+        ];
+
+        System.assertEquals(40, cases.size(), 'Los casos relacionados no fueron actualizados');
+        
+    }
+
+    @isTest
+    public static void whenUpdateResultFieldToBlankInParentCaseUpdateRelatedCases(){
+        List<Case> newCases = new List<Case>();
+        List<Case> relatedCases = new List<Case>();
+        for(Integer i = 0; i<20; i++){
+            newCases.add(new Case(
+                Result__c = 'initial result'
+            ));
+        }
+        insert newCases;
+
+        for(Case aCase: newCases){
+            relatedCases.add(new Case(
+                Result__c = 'Another result',
+                ParentId = aCase.Id
+            ));
+        }
+        insert relatedCases;
+
+        for(Case aCase: newCases){
+            aCase.Result__c = '';
+        }
+
+        Test.startTest();
+        update newCases;
+        Test.stopTest();
+
+        List<Case> cases = [
+            SELECT id, Result__c FROM Case WHERE Result__c = ''
+        ];
+
+        System.assertEquals(40, cases.size(), 'Los casos relacionados no fueron actualizados');
+        
+    }
 }
