@@ -1,0 +1,25 @@
+<apex:page controller="MessageAccountsController">
+    <apex:form>
+        <apex:pageBlock>
+            <apex:pageMessages id="myMsg" />
+            <apex:pageBlockButtons >
+                <apex:commandButton value="Show Selected Accounts" action="{!processAccountSelected}" rerender="table2"/>
+            </apex:pageBlockButtons>
+            <apex:pageBlockSection title="Todas las Cuentas" collapsible="false" columns="2">
+                <apex:pageBlockTable value="{!wrapAccountList}" var="accWrap" id="table" title="Cuentas">
+                    <apex:column>
+                        <apex:inputCheckbox value="{!accWrap.selected}" id="inputId" />
+                    </apex:column>
+                    <apex:column value="{!accWrap.acc.Name}" headerValue="Nombre" />
+                </apex:pageBlockTable>
+                <apex:pageBlockTable value="{!selectedAccounts}" var="selectedAcc" id="table2" title="Cuentas Seleccionadas">
+                    <apex:column value="{!selectedAcc.Name}" headerValue="Nombre" />
+                </apex:pageBlockTable>
+            </apex:pageBlockSection>
+        </apex:pageBlock>
+        <apex:pageBlock>
+            <apex:inputText value="{!message}" id="messageInput" label="Mensaje" />
+            <apex:commandButton value="Guardar Mensaje" action="{!save}" rerender="table2, table, myMsg"/>
+        </apex:pageBlock>
+    </apex:form>
+</apex:page>
