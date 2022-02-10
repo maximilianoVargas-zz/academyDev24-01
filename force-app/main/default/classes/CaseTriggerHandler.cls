@@ -1,4 +1,4 @@
-public with sharing class CaseManage {
+public with sharing class CaseTriggerHandler {
     
     public static void relatedCaseWithTask(List<Case> cases) {
                 

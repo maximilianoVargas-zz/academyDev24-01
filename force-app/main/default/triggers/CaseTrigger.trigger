@@ -2,7 +2,7 @@ trigger CaseTrigger on Case (after insert, after update) {
 
     if (Trigger.isInsert) {
 
-        CaseManage.relatedCaseWithTask(Trigger.new);
+        CaseTriggerHandler.relatedCaseWithTask(Trigger.new);
 
     } else if (Trigger.isUpdate) {
 
@@ -16,7 +16,7 @@ trigger CaseTrigger on Case (after insert, after update) {
             }
         }
 
-        CaseManage.updateResultInAssociatedCases(casesToUpdate);
+        CaseTriggerHandler.updateResultInAssociatedCases(casesToUpdate);
     }
     
 }
