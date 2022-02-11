@@ -70,7 +70,7 @@ public with sharing class CaseTriggerTest2 {
             where Subject='Caso Hijo'
         ];
 
-        System.assertEquals(null,aReleatedCase.Result__c);
+        System.assertEquals(aPrincipalCase.Result__c,null);
     }
     
 }
