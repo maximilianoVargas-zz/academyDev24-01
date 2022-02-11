@@ -5,21 +5,27 @@ global with sharing class AccountApiService {
         //String idAccount = RestContext.request.params.get('Id');
         String idAccount = RestContext.request.requestURI.substring(RestContext.request.requestURI.lastIndexOf('/')+1);
 
-        Account anAccount = [
-            SELECT Name, (
-                SELECT Id, Name
-                FROM Contacts 
-                WHERE Main_Contact__c = true
-                LIMIT 1), (
-                    SELECT Id, Name
-                    FROM Opportunities 
-                    ORDER BY CreatedDate DESC
-                    LIMIT 1)
-            FROM Account
-            WHERE Id=:idAccount
-        ];
 
-        return anAccount;
+        try {
+            Account anAccount = [
+                SELECT Name, (
+                    SELECT Id, Name
+                    FROM Contacts 
+                    WHERE Main_Contact__c = true
+                    LIMIT 1), (
+                        SELECT Id, Name
+                        FROM Opportunities 
+                        ORDER BY CreatedDate DESC
+                        LIMIT 1)
+                FROM Account
+                WHERE Id=:idAccount
+                ];
+
+            return anAccount;
+        } catch (Exception e) {
+            return null;
+        }
+        
         /*
         AccountResponse output = new AccountResponse();
         output.nameAccount=anAccount.Name;
