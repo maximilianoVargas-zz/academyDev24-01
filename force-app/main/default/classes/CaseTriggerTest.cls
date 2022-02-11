@@ -98,7 +98,6 @@ public with sharing class CaseTriggerTest {
         Case aCaseChild = new Case(Subject='Child Case Test',
                                     ParentId = aCaseParent.Id);  
         insert aCaseChild;
-
         aCaseChild.Result__c='Updated Value';
 
         Test.startTest();

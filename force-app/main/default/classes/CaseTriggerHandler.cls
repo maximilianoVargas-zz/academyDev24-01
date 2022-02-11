@@ -5,7 +5,6 @@ public with sharing class CaseTriggerHandler {
         for (Case aCase : cases) {
             casesByParentId.put(aCase.ParentId, aCase);
         }
-
         List<Case> allCases = [
             SELECT Id,ParentId, Result__c
             FROM Case
@@ -21,7 +20,6 @@ public with sharing class CaseTriggerHandler {
                 updatedCases.add(aCase);
             }
         }
-
         update updatedCases;
     }
 
