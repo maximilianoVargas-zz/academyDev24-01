@@ -6,7 +6,7 @@ private class AccountWebServiceTest {
         // Set up a test request
         RestRequest request = new RestRequest();
         request.requestUri =
-            'https://yourInstance.my.salesforce.com/services/apexrest/Cases/'
+            'https://yourInstance.my.salesforce.com/services/apexrest/Accounts/'
             + recordId;
         request.httpMethod = 'GET';
         RestContext.request = request;
