@@ -1,15 +1,17 @@
 public with sharing class CaseTriggerHandler {
-    public static void updateCases(List<Case> cases){
+    public static void updateRelatedCasesResult(List<Case> cases){
         Map<Id, Case> casesByParentId = new Map<Id, Case>();
 
         for (Case aCase : cases) {
             casesByParentId.put(aCase.ParentId, aCase);
         }
 
-        List<Case> allCases = [SELECT Id,ParentId, Result__c
-                                FROM Case
-                                WHERE Id
-                                IN :casesByParentId.keySet()];
+        List<Case> allCases = [
+            SELECT Id,ParentId, Result__c
+            FROM Case
+            WHERE Id
+            IN :casesByParentId.keySet()
+        ];
 
         List<Case> updatedCases = new List<Case>();
 

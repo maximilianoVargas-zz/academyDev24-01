@@ -105,9 +105,11 @@ public with sharing class CaseTriggerTest {
         update aCaseChild;
         Test.stopTest();
 
-        Case updatedParentCase = [SELECT Id, Result__c
-                                FROM Case
-                                WHERE Id = :aCaseParent.Id];
+        Case updatedParentCase = [
+            SELECT Id, Result__c
+            FROM Case
+            WHERE Id = :aCaseParent.Id
+        ];
 
         System.assertEquals('Updated Value', updatedParentCase.Result__c, 'The associated case Result field do not match');
     }
@@ -129,9 +131,11 @@ public with sharing class CaseTriggerTest {
         update aCaseChild;
         Test.stopTest();
 
-        Case updatedParentCase = [SELECT Id, Result__c
-                                FROM Case
-                                WHERE Id = :aCaseParent.Id];
+        Case updatedParentCase = [
+            SELECT Id, Result__c
+            FROM Case
+            WHERE Id = :aCaseParent.Id
+        ];
 
         System.assertEquals(null, updatedParentCase.Result__c, 'The associated case Result field do not match');
     }
