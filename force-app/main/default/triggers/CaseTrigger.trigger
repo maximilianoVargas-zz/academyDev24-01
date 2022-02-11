@@ -12,6 +12,7 @@ trigger CaseTrigger on Case (after update) {
             
             CaseTriggerHandler.updateRelatedCasesResult(cases);
         }
+        
         if (Trigger.isInsert) {
             CaseTriggerHandler.realatedTask(Trigger.new);
          }

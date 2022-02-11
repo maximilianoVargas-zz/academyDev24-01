@@ -20,6 +20,7 @@ public with sharing class CaseTriggerHandler {
                 updatedCases.add(aCase);
             }
         }
+        
         update updatedCases;
     }
 

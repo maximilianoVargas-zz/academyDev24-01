@@ -93,6 +93,7 @@ public with sharing class CaseTriggerTest {
     static void whenHavingTwoAssociatedCasesTheResultFieldUpdatesInTheFirstCase(){
         Case aCaseParent = new Case(Subject = 'Parent Case Test',
                                     Result__c='Not updated');
+                                    
         insert aCaseParent;
 
         Case aCaseChild = new Case(Subject='Child Case Test',
