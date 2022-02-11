@@ -13,10 +13,10 @@ public with sharing class CaseTriggerHandler2 {
                     WHERE Id=:aCase.ParentId];
 
                 PrincipalCase.Result__c=aCase.Result__c;
-                ListCasesUpdate.add(PrincipalCase);
-                
-                update ListCasesUpdate;
+                ListCasesUpdate.add(PrincipalCase);    
             }
         }
+
+        update ListCasesUpdate;
     }   
 }
