@@ -11,10 +11,9 @@ public class PokemonCallout {
 
             List<Object> pokemons = (List<Object>) results.get('forms');
             
-            System.debug('Received the following pokemon:');
             for(Object pokemon: pokemons) {
                 Map<String,Object> tempMap = (Map<String,Object>)pokemon;
-                System.debug('Name: '+ tempMap.get('name'));
+
             }
 
         }

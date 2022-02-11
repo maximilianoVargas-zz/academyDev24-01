@@ -9,7 +9,9 @@ private class PokemonCalloutTest {
         // Associate the callout with a mock response
         Test.setMock(HttpCalloutMock.class, mock);
         // Call method to test
+        Test.startTest();
         HttpResponse result = PokemonCallout.makeGetCallout(25);
+        Test.stopTest();
         // Verify mock response is not null
         System.assertNotEquals(null,result, 'The callout returned a null response.');
         // Verify status code
@@ -26,7 +28,6 @@ private class PokemonCalloutTest {
             
             for(Object pokemon: pokemons) {
                 Map<String,Object> tempMap = (Map<String,Object>)pokemon;
-                System.debug('Name: '+ tempMap.get('name'));
                 aPokeName = String.valueOf(tempMap.get('name'));
             }
         System.assertEquals('pikachu', aPokeName, 'Pokemon name from request does not match');          
