@@ -1,14 +1,18 @@
 public with sharing class AccountManage {
-    public static String createAccount(
+    public static Id createAccount(
         String name, 
         Integer number_employees, 
         String document_type, 
         String document_number){
+            if(name == null || number_employees == null || document_type == null || document_number == null){
+                throw new IllegalArgumentException('The parameters must not be null');
+            }
             Account anAccount = new Account(
                 Name = name, 
                 NumberOfEmployees = number_employees, 
                 Identification_type__c = document_type, 
-                Document_number__c = document_number);        
+                Document_number__c = document_number); 
+                insert anAccount;       
             return anAccount.Id;
     }
     
@@ -20,6 +24,7 @@ public with sharing class AccountManage {
             List<Account> accounts = [select Name, NumberOfEmployees, Identification_type__c, Document_number__c 
                                 from Account
                                 where Document_number__c = :document_number
+                                and Identification_type__c = :document_type
                                 and Name = :name];
             if(accounts.isEmpty()) return false;
             Account anAccount = accounts[0];
