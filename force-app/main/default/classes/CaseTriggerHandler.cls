@@ -7,7 +7,13 @@ public with sharing class CaseTriggerHandler {
 
         Datetime aDate = Datetime.now().addMinutes(-2);
 
-        List<Task> tasks = [SELECT Id, WhoId FROM Task WHERE WhoId IN :casesByContactId.keySet() AND WhatId = null AND CreatedDate >= :aDate];
+        List<Task> tasks = [
+            SELECT Id, WhoId 
+            FROM Task 
+            WHERE WhoId IN :casesByContactId.keySet() 
+            AND WhatId = null 
+            AND CreatedDate >= :aDate
+            ];
         
         for (Task aTask : tasks){
             Case aCase = casesByContactId.get(aTask.WhoId);
@@ -25,7 +31,11 @@ public with sharing class CaseTriggerHandler {
             }
         }
 
-        List<Case> parentCases = [SELECT Id, Result__c FROM Case WHERE Id IN :casesByParentId.keySet()];
+        List<Case> parentCases = [
+            SELECT Id, Result__c 
+            FROM Case 
+            WHERE Id IN :casesByParentId.keySet()
+            ];
 
         for (Case aCase : parentCases){
             Case relatedCase = casesByParentId.get(aCase.Id);
