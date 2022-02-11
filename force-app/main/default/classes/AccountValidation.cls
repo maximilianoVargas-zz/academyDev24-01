@@ -17,16 +17,24 @@ ClosedDate = current date + 30 days
  */
 public class AccountValidation {
     public static void validateAccount(List<Account> listNewAccounts) {
+        List<String> listIdentificationTypes = new List<String>();
+        List<String> listDocumentNumbers = new List<String>();
+        for(Account anAccount: listNewAccounts){
+            listIdentificationTypes.add(anAccount.Identification_type__c);
+            listDocumentNumbers.add(anAccount.Document_number__c);
+        }
         List<Account> listAllAccounts = [
             SELECT id, Name, Document_number__c, Identification_type__c
             FROM Account
+            WHERE Identification_type__c IN :listIdentificationTypes
+            AND Document_number__c IN :listDocumentNumbers
         ];
 
         List<Account> listErrorAccounts = new List<Account>();
         for(Account aNewAccount:listNewAccounts){
-            for(Account aAccount:listAllAccounts){
-                if(aNewAccount.Document_number__c == aAccount.Document_number__c
-                   && aNewAccount.Identification_type__c == aAccount.Identification_type__c){
+            for(Account anAccount:listAllAccounts){
+                if(aNewAccount.Document_number__c == anAccount.Document_number__c
+                   && aNewAccount.Identification_type__c == anAccount.Identification_type__c){
                         aNewAccount.addError('Cannot create account with same id type and number');
                 }
                     
