@@ -29,6 +29,12 @@ public class AccountMessageController {
                 selectedAccounts.add(wrapAccountObj.account);
             }
         }
+
+        if (message.Description__c == null || message.Description__c.equals('')) {
+            System.debug('Invalid description');
+            return;
+        }
+
         insert message;
         List<AccountMessage__c> accountMessages = new List<AccountMessage__c>();
         for (Account anAccount : selectedAccounts) {
