@@ -15,7 +15,7 @@ private class AccountWebServiceTest {
         Account thisAccount = AccountWebService.getAccountById();
         Test.stopTest();
         // Verify results
-        System.assert(thisAccount != null, 'Did not get an account with the requested Id');
+        System.assertNotEquals(thisAccount, null, 'Did not get an account with the requested Id');
         System.assertEquals('Springfield Power Plant', thisAccount.Name, 'The names do not match');
     }
     // Helper method
