@@ -1,8 +1,4 @@
 public with sharing class AccountManage {
-    public AccountManage() {
-
-    }
-
     public static String createAccount(String name, Integer numberOfEmployees, 
                                     String identificationType, String documentNumber) {
         Account account1 = new Account();
@@ -12,7 +8,6 @@ public with sharing class AccountManage {
         account1.Document_number__c = documentNumber;
 
         insert account1;
-        System.debug(account1.Id);
         return  account1.Id;
     }
 
@@ -29,7 +24,6 @@ public with sharing class AccountManage {
          acc.Document_number__c = documentNumber;
 
         Database.SaveResult result = Database.update(acc,false);
-        System.debug(result.isSuccess());
         return result.isSuccess();
     }
 
@@ -40,7 +34,6 @@ public with sharing class AccountManage {
          WHERE Document_number__c =: documentNumber];
 
         Database.DeleteResult result = Database.delete(acc,false);
-        System.debug(result.isSuccess());
         return result.isSuccess();
     }
 
