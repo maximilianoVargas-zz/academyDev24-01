@@ -1,10 +1,11 @@
-trigger AccountTrigger on Account (before insert, before update) {
-    if(Trigger.isBefore){
+trigger AccountTrigger on Account (after insert, after update) {
+    if (Trigger.isAfter){
+        
         if(Trigger.isInsert){
-            
-            if(AccountValidation.validateAccount(Trigger.new) == true){
-                Trigger.new[0].addError('There is an existing account with the same Document Number');
+             AccountValidation.validateAccount(Trigger.new);
+            }
+           
+        } else if (Trigger.isUpdate) {
+            AccountValidation.validateAccount(Trigger.new);
         }
-    }
-}
 }

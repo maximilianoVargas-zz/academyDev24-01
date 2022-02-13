@@ -55,4 +55,21 @@ public with sharing class AccountManage {
         }
     } 
 
+    public static void createOpportunity(List<Account> accounts){
+        List<Opportunity> oppToCreate = new List<Opportunity>();
+        Date dateThirtyDaysFromNow = Date.today().addDays(+30);
+        for(Account acc : accounts){
+            if(acc.Create_Opportunity__c == true) {
+                Opportunity opp = new Opportunity(
+                    Name = 'Opportunity' + acc.Name + String.valueOf(Date.today()),
+                    StageName = 'Prospecting',
+                    AccountId = acc.Id,
+                    CloseDate = dateThirtyDaysFromNow
+                );
+                oppToCreate.add(opp);
+                }
+            }
+        insert oppToCreate; 
+    } 
+
 }

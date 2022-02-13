@@ -1,29 +1,23 @@
 public with sharing class AccountValidation {
-    public static boolean validateAccount(List<Account> accounts){
+    public static void validateAccount(List<Account> accounts){
 
-        Map<String, Account> m = new Map<String, Account>();
-
-        List<String> dupes = new List<String>();
-        
-        Boolean dupe = false;
-        
-        for (Account acc : [SELECT Document_number__c
-                FROM Account
-                WHERE Active__c ='yes']){
-                    m.put(acc.Document_number__c,acc);
-                }
-
-        for(Account a : accounts){
-            if(m.containsKey(a.Document_number__c)){
-                dupes.add(a.Document_number__c);
-            }
+        Map<String,Account> accountsByDocumentNumber = new Map<String,Account>();
+        for (Account acc : accounts){
+            accountsByDocumentNumber.put(acc.Document_Number__c, acc);
         }
 
-        if(dupes.size()>0){
-            dupe = true;
+        List<Account> repeatedAccounts = [
+            SELECT Document_Number__c, Conflict_Error__c
+            FROM Account
+            WHERE Document_Number__c 
+            IN :accountsByDocumentNumber.keySet()
+        ];
+
+        for (Account acc2 : repeatedAccounts){
+            acc2.Conflict_Error__c = 'ERROR: An account with this Document Number and Type Already Exits';
         }
-        
-        return dupe;
+
+        update repeatedAccounts;
     }
 
 }

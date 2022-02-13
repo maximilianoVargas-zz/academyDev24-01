@@ -98,4 +98,39 @@ public with sharing class AccountManageTest {
         System.assert(aNull == true, 
         'Did not get a null meaning the method is not returning the correct value when an invalid parameter is passed');
     }
+
+    @isTest
+    static void checkIfNewOpporunityIsCreatedWhenCreateOpportunityFieldIsEqualsTrue(){
+        List<Account> accounts = new List<Account>();
+        Account anAccount = new Account(
+            Name = 'WoW Maxi Its 2 AM in a Sunday I Really Dont Care At This Point LOL',
+            Create_Opportunity__c = true
+        );
+        accounts.add(anAccount);
+
+        insert accounts;
+
+        Test.startTest();
+        AccountManage.createOpportunity(accounts);
+        Test.stopTest();
+
+        Account oneUpdatedAccount = [
+            SELECT Id, Name
+            FROM Account
+            WHERE Name = 'WoW Maxi Its 2 AM in a Sunday I Really Dont Care At This Point LOL'
+            LIMIT 1
+        ];
+
+        Opportunity aNewOpportunity = [
+            SELECT AccountId
+            FROM Opportunity
+            WHERE AccountId = :oneUpdatedAccount.Id
+            LIMIT 1
+        ];
+
+        System.assertEquals(oneUpdatedAccount.Id, aNewOpportunity.AccountId, 
+                        'Id do not match or no new opportunity was created');
+
+    }
+
 }
