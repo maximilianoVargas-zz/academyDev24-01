@@ -3,7 +3,7 @@ public with sharing class AccountManageTest {
  
 
     @IsTest
-    public static void testCreateOpportunityWhenCreaterOpportunityFieldIsTrue(){
+    public static void whenCreateOpportunityWhenCreaterOpportunityFieldIsTrue(){
 
         List<Account> accounts = new List<Account>();
         for(Integer i = 0;  i<20 ; i++){
