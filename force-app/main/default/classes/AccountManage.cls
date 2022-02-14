@@ -13,10 +13,8 @@ public class AccountManage {
                 insert NewAccount;
                 return NewAccount.Id;
             }
-
-            else{
-                return 'El Usuario ya Existe';
-            }   
+            else
+                return 'El Usuario ya Existe';              
         }
         catch(DmlException e){
             return String.valueof(e);
@@ -35,14 +33,13 @@ public class AccountManage {
                 UpdateAccount.NumberOfEmployees=NumEmployees;
                 UpdateAccount.Identification_type__c=DocumentType;
                 UpdateAccount.Document_number__c=DocumentNumber;
+
                 Database.SaveResult result = Database.update(UpdateAccount,false);
                 return result.isSuccess(); 
             }
 
-            else{
-                return false;
-            }
-                    
+            else
+                return false;                  
         }
         catch(DmlException e){
             return false;
@@ -84,20 +81,20 @@ public class AccountManage {
     }   
 
 
-    public static void createOpportunity(List<Account> ListAccount){
+    public static void createOpportunity(List<Account> Accounts){
 
-        List<Opportunity> ListOpportunities=new List<Opportunity>();
+        List<Opportunity> Opportunities=new List<Opportunity>();
 
-        for(Account anAccount : ListAccount){
+        for(Account anAccount : Accounts){
             if(anAccount.create_opportunity__c==true){
                 Opportunity anOpportunity=new Opportunity();
                 anOpportunity.Name='Opportunity ' + anAccount.Name +' '+Date.TODAY();
                 anOpportunity.StageName='Prospection';
                 anOpportunity.CloseDate=Date.TODAY()+30;
-                ListOpportunities.add(anOpportunity);
+                Opportunities.add(anOpportunity);
             }
         }
 
-        insert ListOpportunities;
+        insert Opportunities;
    } 
 }

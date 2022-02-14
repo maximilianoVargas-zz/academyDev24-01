@@ -1,7 +1,7 @@
 @isTest
 public with sharing class CaseTriggerTest {
     @TestSetup
-    static void makeData(){
+    static void InsertData(){
 
         Contact aContact = new Contact(
             FirstName = 'Gerardo',

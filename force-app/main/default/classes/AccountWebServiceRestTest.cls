@@ -29,7 +29,7 @@ public with sharing class AccountWebServiceRestTest {
 
         string ResponseExpected='{"Name Of Account":'+anAccount.Name+'",Principal Contac:"'+aContact.Id+'",Id Last Opportunity:"'+anOpportunity.Id+'}';
 
-        System.assertEquals(ResponseExpected, Response);
+        System.assertEquals(ResponseExpected, Response,'The Response from the webService was Incorrect');
         
     }
 
@@ -46,7 +46,7 @@ public with sharing class AccountWebServiceRestTest {
 
         string ResponseExpected='The Id Dont have any opportunity or an account asociate';
 
-        System.assertEquals(ResponseExpected, Response);
+        System.assertEquals(ResponseExpected, Response,'The response from the webService was Success');
     }
     
 }

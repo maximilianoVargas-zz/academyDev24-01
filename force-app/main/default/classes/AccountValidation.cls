@@ -1,13 +1,13 @@
 public with sharing class AccountValidation {
-    public static string validateAccount(List<Account> ListAccount ) {
+    public static string validateAccount(List<Account> Accounts,string Operation) {
         try{
-            List<Account> InsertList=new List<Account>();
+            List<Account> InsertAccounts=new List<Account>();
             Integer error=0;
     
-            for(Account anAccount : ListAccount){
+            for(Account anAccount : Accounts){
                 Integer count=[select Count() from Account where Identification_type__c=:anAccount.Identification_type__c and Document_number__c=:anAccount.Document_number__c];
                 
-                if(count != 0){
+                if(count != 0 && Operation=='Add'){
                     error=1;
                     anAccount.addError('El registro '+anAccount.Name+' ya existe');
                 }                                  

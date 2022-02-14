@@ -24,11 +24,11 @@ public with sharing class CaseTriggerHandler {
             update tasks;
     }
 
-    public static void UpdatePrincipalCase(List<Case> ListCases){
+    public static void UpdatePrincipalCase(List<Case> Cases){
 
-        List<Case> ListCasesUpdate=new List<Case>();
+        List<Case> CasesUpdate=new List<Case>();
 
-        for (Case aCase : ListCases) {
+        for (Case aCase : Cases) {
             if (aCase.ParentId!=null) {
 
                 Case PrincipalCase=[
@@ -37,10 +37,10 @@ public with sharing class CaseTriggerHandler {
                     WHERE Id=:aCase.ParentId];
 
                 PrincipalCase.Result__c=aCase.Result__c;
-                ListCasesUpdate.add(PrincipalCase);    
+                CasesUpdate.add(PrincipalCase);    
             }
         }
 
-        update ListCasesUpdate;
+        update CasesUpdate;
     }   
 }
