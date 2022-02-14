@@ -21,7 +21,6 @@ global with sharing class AccountWebService {
             FROM Account
             WHERE Id = :accountId
             ];
-            
         return result;
     }
 }
