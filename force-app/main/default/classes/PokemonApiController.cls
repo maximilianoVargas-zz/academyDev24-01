@@ -9,11 +9,9 @@ public with sharing class PokemonApiController {
         HttpResponse response = http.send(request);
         EntityPokemonApi pokemon;
 
-        if(response.getStatusCode() == 200) {
+        if(response.getStatusCode() == 200) 
             pokemon=EntityPokemonApi.parse(response.getBody());
-            System.debug('Respuesta del body:'+response.getBody());
-        }    
-           
+      
         else
             pokemon=null;
             
@@ -29,13 +27,12 @@ public with sharing class PokemonApiController {
         string body=EntityPokemonApi.JsonPokemon();
         EntityPokemonApi pokemon;
 
-        if(CharactersName =='ditto'){
+        if(CharactersName =='ditto')
             pokemon=EntityPokemonApi.parse(body);
-        }
-        else{
+
+        else
             pokemon=null;
-        }
-        
+  
         return pokemon;
     }
 }
