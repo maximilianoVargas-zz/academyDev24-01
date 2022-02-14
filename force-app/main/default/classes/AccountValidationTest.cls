@@ -1,7 +1,7 @@
 @isTest
 private with sharing class AccountValidationTest {
     @isTest
-    static void testvalidateError(){
+    static void testApproveAccount(){
 
         Account anAccount = new Account(
             Name = 'Test',
@@ -31,5 +31,20 @@ private with sharing class AccountValidationTest {
 
         System.assertEquals(false, result, 'Something went wrong when returning true or false.');
     }
+    @isTest
+    static void testApproveAccountWhenHavingEmptyIdentificationTypeAndDocumentNumber(){
 
+        Account anAccount = new Account(
+            Name = 'Test',
+            Identification_type__c = Null,
+            Document_number__c = Null
+        );
+        insert anAccount;
+
+        Test.startTest();
+        Boolean result = AccountValidation.validateAccount(anAccount);
+        Test.stopTest();
+
+        System.assertEquals(true, result, 'Something went wrong when returning true or false.');
+    }
 }
