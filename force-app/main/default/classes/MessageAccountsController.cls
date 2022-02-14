@@ -23,13 +23,16 @@ public with sharing class MessageAccountsController {
     public void save() {
         if(message != null && !message.equals('')) {
             if(selectedAccounts != null && !selectedAccounts.isEmpty()) {
-                List<Message__c> messages = new List<Message__c>();
+                Message__c aMessage = new Message__c( Name = message);
+                insert aMessage;
+                List<MessageInAccount__c> messages = new List<MessageInAccount__c>();
                 for(Account anAccount : selectedAccounts) {
-                    Message__c aMessage = new Message__c(Account__c = anAccount.Id, Name = message);
-                    messages.add(aMessage);
+                    MessageInAccount__c aMessageInAccount = new MessageInAccount__c(Account__c = anAccount.Id, Message__c = aMessage.Id);
+                    messages.add(aMessageInAccount);
                 }
                 insert messages;
                 selectedAccounts = new List<Account>();
+                message = '';
                 cleanWrapSelected();
                 ApexPages.addMessage(new ApexPages.Message(ApexPages.Severity.CONFIRM, 'Datos guardados correctamente'));
             } else {
