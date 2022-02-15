@@ -1,31 +1,8 @@
 @isTest
 public with sharing class AccountApiTest {
-    @isTest
-    static void shouldReturnAccountByAnAccountId(){
-        Id accountId=createTestRecord();
-        RestRequest request = new RestRequest();
-        request.requestURI='mindful-hawk-1qej8q-dev-ed.my.salesforce.com/services/apexrest/Accountjd/' + accountId;
-        request.httpMethod='GET';
 
-        RestContext.request=request;
-
-        Account account=AccountApi.getAccountById();
-
-        System.assert(account!=null);
-        //validate name account
-        System.assertEquals('examplename', account.Name,'accout name does not match with expected');
-
-        //validate principal contact
-        Contact con=account.Contacts[0];
-        System.assertEquals('name1', con.FirstName,'contact name does not match with expected');
-
-        //validate date last created
-        Opportunity opp=account.Opportunities[0];
-        System.assertEquals('desc2',opp.Description,'thid not the last created date for an opportunity');
-        
-    }
-
-    static Id createTestRecord(){
+    @TestSetup
+    static void makeData(){
         Account account = new Account(Name='examplename');
         insert account;
 
@@ -64,6 +41,41 @@ public with sharing class AccountApiTest {
         Datetime aDate = Datetime.now().addMinutes(10);
         Test.setCreatedDate(opp2.Id, aDate);
 
-        return account.Id;
     }
+
+    @isTest
+    static void shouldReturnAccountByAnAccountId(){
+
+        Account testAccount=[
+            SELECT Id,Name
+            FROM Account
+            WHERE Name='examplename'
+        ][0];
+
+        Id accountId = testAccount.Id;
+
+        RestRequest request = new RestRequest();
+        request.requestURI='mindful-hawk-1qej8q-dev-ed.my.salesforce.com/services/apexrest/Accountjd/' + accountId;
+        request.httpMethod='GET';
+
+        RestContext.request=request;
+
+        Test.startTest();
+        Account account=AccountApi.getAccountById();
+        Test.stopTest();
+
+        System.assert(account!=null);
+        //validate name account
+        System.assertEquals('examplename', account.Name,'accout name does not match with expected');
+
+        //validate principal contact
+        Contact con=account.Contacts[0];
+        System.assertEquals('name1', con.FirstName,'contact name does not match with expected');
+
+        //validate date last created
+        Opportunity opp=account.Opportunities[0];
+        System.assertEquals('desc2',opp.Description,'thid not the last created date for an opportunity');
+        
+    }
+
 }

@@ -9,7 +9,9 @@ public with sharing class PokemonWork1Test {
 
         Test.setMock(HttpCalloutMock.class, mock);
 
+        Test.startTest();
         PokemonConverter result=PokemonWork1.findPokemonById(100);
+        Test.stopTest();
         String pokemonName=result.name;
 
         System.assertEquals('voltorb', pokemonName,'pokemon name dos not match with expected');

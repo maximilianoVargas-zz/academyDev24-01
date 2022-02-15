@@ -1,32 +1,41 @@
 public with sharing class AccountValidation {
     public static void validateAccount(List<Account> accounts){
-        List<Account> existingAccounts= [select Id,DocumentNumber__c,IdentificationType__c from Account];
         Map<String,Account> accountsByDocumentNumber=new Map<String,Account>();
 
-        for (Account account : existingAccounts) {
-            if(account.DocumentNumber__c!=null && account.IdentificationType__c!=null){
-                accountsByDocumentNumber.put(account.DocumentNumber__c, account);
+        for (Account anAccount : accounts) {
+            if(anAccount.DocumentNumber__c!=null && anAccount.IdentificationType__c!=null){
+                accountsByDocumentNumber.put(anAccount.DocumentNumber__c, anAccount);
             }
         }
 
-        for (Account account : accounts) {
-            Account acc=accountsByDocumentNumber.get(account.DocumentNumber__c);
-            System.debug('acc: '+ acc);
-            if (acc!=null) {
-                if (account.DocumentNumber__c == acc.DocumentNumber__c && account.IdentificationType__c == acc.IdentificationType__c ) {
-                    account.addError('Document already exists');
+        List<Account> existingAccounts= [
+            SELECT Id,DocumentNumber__c,IdentificationType__c 
+            FROM Account 
+            WHERE DocumentNumber__c IN :accountsByDocumentNumber.keySet()
+        ];
+
+        if (existingAccounts.size()>0) {
+            for (Account anAccount : accounts) {
+                Account foundAccount=accountsByDocumentNumber.get(anAccount.DocumentNumber__c);
+                if (foundAccount!=null) {
+                    if (anAccount.DocumentNumber__c == foundAccount.DocumentNumber__c && anAccount.IdentificationType__c == foundAccount.IdentificationType__c ) {
+                        anAccount.addError('Document already exists');
+                    }
                 }
             }
         }
     }
 
-    public static void createOpportunity(Account account){
-        if(account.opportunity__c==true){
-            Opportunity opp=new Opportunity();
-            opp.AccountId=account.Id;
-            opp.Name='Opportunity'+account.Name+System.today();
-            opp.StageName='Prospection';
-            opp.CloseDate=System.today().addMonths(1);
+    public static void createOpportunity(List<Account> accounts){
+        for (Account anAccount : accounts)  {
+            if(anAccount.opportunity__c==true){
+                Opportunity opp=new Opportunity();
+                opp.AccountId=anAccount.Id;
+                opp.Name='Opportunity'+anAccount.Name+System.today();
+                opp.StageName='Prospection';
+                opp.CloseDate=System.today().addMonths(1);
+                insert opp;
+            }
         }
     }
     /*
