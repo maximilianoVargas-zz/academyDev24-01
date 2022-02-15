@@ -25,6 +25,30 @@ public with sharing class MessageAssignmentControllerTest {
     @IsTest
     static void whenTryToCreateMessageWithZeroAccountsSelected_ThenNoCreationIsMade_AndErrorMessageIsShown(){
         MessageAssignmentController controller = new MessageAssignmentController();
+        // Update description
+        controller.description = 'description';
+        
+        Test.startTest();
+        controller.createMessage();
+        Test.stopTest();
+        
+        system.assertEquals(true, controller.showErrorMessage, 'The error message must be visible');
+        // Assert that no messages have been created
+        List<Message__c> messages = [
+            SELECT Id
+            FROM Message__c
+        ];
+        system.assertEquals(0, messages.size(), 'Zero messages must have been created');
+    }
+
+    @IsTest
+    static void whenTryToCreateMessageWithNoDescription_ThenNoCreationIsMade_AndErrorMessageIsShown(){
+        MessageAssignmentController controller = new MessageAssignmentController();
+        // Select 2 accounts
+        for (Integer i = 0; i < 2; i++) {
+            controller.wrapAccountList.get(i).selected = true;
+        }
+
         Test.startTest();
         controller.createMessage();
         Test.stopTest();

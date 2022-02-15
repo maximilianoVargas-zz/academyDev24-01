@@ -34,7 +34,7 @@
             <apex:commandButton value="Save Message" action="{!createMessage}" />
 
             <apex:outputLabel rendered="{!showErrorMessage}" style="color: red">
-                Al least 1 account must be selected
+                {!errorMessage}
             </apex:outputLabel>
 
             <apex:outputLabel rendered="{!showSuccessMessage}" style="color: green">

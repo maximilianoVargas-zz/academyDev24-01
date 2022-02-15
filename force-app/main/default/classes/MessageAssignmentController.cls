@@ -4,7 +4,10 @@ public with sharing class MessageAssignmentController {
 
     public List<WrapAccount> wrapAccountList {get; set;}
     public String description {get; set;}
+
     public Boolean showErrorMessage {get; set;}
+    public String errorMessage {get; set;}
+
     public Boolean showSuccessMessage {get; set;}
      
     public MessageAssignmentController(){
@@ -28,7 +31,17 @@ public with sharing class MessageAssignmentController {
             }
         }
         if(!atLeastOne) {
-            this.showErrorMessage = true;
+            showOnlyErrorMessage();
+            this.errorMessage = 'At least 1 account must be selected';
+            return;
+        } else {
+            this.showErrorMessage = false;
+        }
+
+        // Check if description is empty
+        if(string.isBlank(this.description)) {
+            showOnlyErrorMessage();
+            this.errorMessage = 'No description provided';
             return;
         } else {
             this.showErrorMessage = false;
@@ -55,6 +68,11 @@ public with sharing class MessageAssignmentController {
         insert associations;
         system.debug('Message_Account_Associations created');
         this.showSuccessMessage = true;
+    }
+
+    private void showOnlyErrorMessage() {
+        this.showErrorMessage = true;
+        this.showSuccessMessage = false;
     }
  
     public class WrapAccount {
