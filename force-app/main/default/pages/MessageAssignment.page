@@ -1,0 +1,47 @@
+<apex:page controller="MessageAssignmentController" sidebar="false">
+    <script type="text/javascript">
+        function selectAllCheckboxes(obj,receivedInputID){
+            var inputCheckBox = document.getElementsByTagName("input");                  
+            for(var i=0; i<inputCheckBox.length; i++){          
+                if(inputCheckBox[i].id.indexOf(receivedInputID)!=-1){                                     
+                    inputCheckBox[i].checked = obj.checked;
+                }
+            }
+        }
+    </script>
+
+    <apex:form>
+        <apex:pageBlock title="Create a Message">
+            <apex:pageblockSection title="Assigned accounts" collapsible="false">
+             
+                <apex:pageBlockTable value="{!wrapAccountList}" var="accWrap" id="table" title="Assigned accounts">
+                    <apex:column>
+                        <apex:facet name="header">
+                            <apex:inputCheckbox onclick="selectAllCheckboxes(this,'inputId')"/>
+                        </apex:facet>
+                        <apex:inputCheckbox value="{!accWrap.selected}" id="inputId"/>
+                    </apex:column>
+                    <apex:column value="{!accWrap.acc.Name}" />
+                    <apex:column value="{!accWrap.acc.BillingState}" />
+                    <apex:column value="{!accWrap.acc.Phone}" />
+                </apex:pageBlockTable>
+             
+            </apex:pageblockSection>
+            
+            <apex:outputLabel>Description: </apex:outputLabel>
+            <apex:inputText value="{!description}" title="Description"></apex:inputText>
+            <br></br>
+            <apex:commandButton value="Save Message" action="{!createMessage}" />
+
+            <apex:outputLabel rendered="{!showErrorMessage}" style="color: red">
+                Al least 1 account must be selected
+            </apex:outputLabel>
+
+            <apex:outputLabel rendered="{!showSuccessMessage}" style="color: green">
+                Success!
+            </apex:outputLabel>
+
+        </apex:pageBlock>
+    </apex:form>
+       
+</apex:page>
