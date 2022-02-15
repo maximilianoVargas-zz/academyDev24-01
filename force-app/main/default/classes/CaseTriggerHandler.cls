@@ -24,20 +24,16 @@ public with sharing class CaseTriggerHandler {
             update tasks;
     }
 
-    public static void relatedCase(Map<Id,Case> parentCasesById){
-        List<Case> childCases = [
-                                SELECT Id, Result__c, ParentId
-                                FROM Case
-                                WHERE ParentId IN :parentCasesById.keySet()
-                                ];
+    public static void relatedCase(Map<Id, Case> casesById, List<Case> childCasesToUpdate){
 
-        for(Case aChildCase : childCases){
-            Case aParentCase = parentCasesById.get(aChildCase.ParentId);
-            if(aChildCase.Result__c != aParentCase.Result__c){
-                aChildCase.Result__c = aParentCase.Result__c;
-            }
+        List<Case> casesToUpdate = new List<Case>();
+        
+        for(Case aChildCase : childCasesToUpdate){
+            Case aParentCase = casesById.get(aChildCase.ParentId);
+            aChildCase.Result__c = aParentCase.Result__c;
+
+            casesToUpdate.add(aChildCase);
         }
-
-        update childCases;
+        update casesToUpdate;
     }
 }

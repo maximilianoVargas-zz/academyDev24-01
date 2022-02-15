@@ -46,7 +46,9 @@ public with sharing class CaseTriggerTest {
             FROM Contact
             WHERE Email = 'maximiliano.vargas@globant.com'
             LIMIT 1
-        ];Task aTask = [
+        ];
+        
+        Task aTask = [
             SELECT Id
             FROM Task
             WHERE WhoId = :aContact.Id
@@ -115,10 +117,10 @@ public with sharing class CaseTriggerTest {
     static void whenACaseSubjectFieldIsUpdatedSoIsTheSubjectFieldInItsAssociatedCase(){
 
         List<Case> parentCasesToUpdate = [
-                                SELECT Id, Result__c
-                                FROM Case
-                                WHERE Result__c = 'First Value'
-                                ];
+            SELECT Id, Result__c
+            FROM Case
+            WHERE Result__c = 'First Value'
+        ];
 
         for(Case aCase : parentCasesToUpdate){
             aCase.Result__c = 'Modified field.';
@@ -136,10 +138,10 @@ public with sharing class CaseTriggerTest {
         }
 
         List<Case> updatedChildCases = [
-                                    SELECT Id, Result__c
-                                    FROM Case
-                                    WHERE ParentId IN :parentCasesIds
-                                    ];
+            SELECT Id, Result__c
+            FROM Case
+            WHERE ParentId IN :parentCasesIds
+        ];
 
         System.assertEquals('Modified field.', updatedChildCases.get(0).Result__c, 'The Result field in the child case was not modified when the same field was modified in the parent case.');
     }
@@ -148,10 +150,10 @@ public with sharing class CaseTriggerTest {
     static void whenACaseSubjectFieldIsUpdatedToBlankSoIsTheSubjectFieldInItsAssociatedCase(){
 
         List<Case> parentCasesToUpdate = [
-                                        SELECT Id, Result__c
-                                        FROM Case
-                                        WHERE Result__c = 'First Value'
-                                        ];
+            SELECT Id, Result__c
+            FROM Case
+            WHERE Result__c = 'First Value'
+        ];
 
         for(Case aCase : parentCasesToUpdate){
         aCase.Result__c = null;
@@ -169,10 +171,10 @@ public with sharing class CaseTriggerTest {
         }
 
         List<Case> updatedChildCases = [
-                                    SELECT Id, Result__c
-                                    FROM Case
-                                    WHERE ParentId IN :parentCasesIds
-                                    ];
+            SELECT Id, Result__c
+            FROM Case
+            WHERE ParentId IN :parentCasesIds
+        ];
 
         Boolean aChildCaseResultField = String.isBlank(updatedChildCases.get(0).Result__c);
 
