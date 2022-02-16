@@ -32,7 +32,6 @@ public with sharing class MessageAssignmentControllerTest {
         controller.createMessage();
         Test.stopTest();
         
-        system.assertEquals(true, controller.showErrorMessage, 'The error message must be visible');
         // Assert that no messages have been created
         List<Message__c> messages = [
             SELECT Id
@@ -53,7 +52,6 @@ public with sharing class MessageAssignmentControllerTest {
         controller.createMessage();
         Test.stopTest();
         
-        system.assertEquals(true, controller.showErrorMessage, 'The error message must be visible');
         // Assert that no messages have been created
         List<Message__c> messages = [
             SELECT Id
@@ -76,9 +74,6 @@ public with sharing class MessageAssignmentControllerTest {
         controller.createMessage();
         Test.stopTest();
         
-        system.assertEquals(false, controller.showErrorMessage, 'The error message must not be visible');
-        system.assertEquals(true, controller.showSuccessMessage, 'The success message must be visible');
-
         // Assert that 1 message was created with the correct description
         List<Message__c> messages = [
             SELECT Id, description__c

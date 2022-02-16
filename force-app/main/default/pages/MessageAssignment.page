@@ -31,15 +31,9 @@
             <apex:outputLabel>Description: </apex:outputLabel>
             <apex:inputText value="{!description}" title="Description"></apex:inputText>
             <br></br>
+            <apex:pageMessages /> 
+            <br></br> 
             <apex:commandButton value="Save Message" action="{!createMessage}" />
-
-            <apex:outputLabel rendered="{!showErrorMessage}" style="color: red">
-                {!errorMessage}
-            </apex:outputLabel>
-
-            <apex:outputLabel rendered="{!showSuccessMessage}" style="color: green">
-                Success!
-            </apex:outputLabel>
 
         </apex:pageBlock>
     </apex:form>

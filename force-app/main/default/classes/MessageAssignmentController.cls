@@ -4,11 +4,6 @@ public with sharing class MessageAssignmentController {
 
     public List<WrapAccount> wrapAccountList {get; set;}
     public String description {get; set;}
-
-    public Boolean showErrorMessage {get; set;}
-    public String errorMessage {get; set;}
-
-    public Boolean showSuccessMessage {get; set;}
      
     public MessageAssignmentController(){
         if(wrapAccountList == null) {
@@ -17,8 +12,6 @@ public with sharing class MessageAssignmentController {
                 wrapAccountList.add(new wrapAccount(a));
             }
         }
-        this.showErrorMessage = false;
-        this.showSuccessMessage = false;
     }
 
     public void createMessage() {
@@ -31,20 +24,14 @@ public with sharing class MessageAssignmentController {
             }
         }
         if(!atLeastOne) {
-            showOnlyErrorMessage();
-            this.errorMessage = 'At least 1 account must be selected';
+            ApexPages.addMessage(new ApexPages.Message(ApexPages.Severity.Error,'At least 1 account must be selected'));
             return;
-        } else {
-            this.showErrorMessage = false;
         }
 
         // Check if description is empty
         if(string.isBlank(this.description)) {
-            showOnlyErrorMessage();
-            this.errorMessage = 'No description provided';
+            ApexPages.addMessage(new ApexPages.Message(ApexPages.Severity.Error,'No description provided'));
             return;
-        } else {
-            this.showErrorMessage = false;
         }
 
         // Create the message
@@ -65,12 +52,7 @@ public with sharing class MessageAssignmentController {
             }
         }
         insert associations;
-        this.showSuccessMessage = true;
-    }
-
-    private void showOnlyErrorMessage() {
-        this.showErrorMessage = true;
-        this.showSuccessMessage = false;
+        ApexPages.addMessage(new ApexPages.Message(ApexPages.Severity.Confirm,'Success!'));
     }
  
     public class WrapAccount {
