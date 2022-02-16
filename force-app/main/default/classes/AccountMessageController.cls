@@ -16,30 +16,38 @@ public class AccountMessageController {
 
     public void SendMessage()
     {
-        //System.debug(message);
-        selectedAccounts = new List<Account>();
- 
-        for(wrapAccount wrapAccountObj : wrapAccountList) {
-            if(wrapAccountObj.selected == true) {
-                selectedAccounts.add(wrapAccountObj.acc);
+        if (!string.isBlank(message)) {
+            Savepoint sp = Database.setSavepoint();
+            Message__c anMessage = new Message__c();
+            anMessage.Name = message.left(80);
+            anMessage.Description__c = message.left(255);
+            Insert(anMessage);    
+        
+            selectedAccounts = new List<Account>();
+    
+            for(wrapAccount wrapAccountObj : wrapAccountList) {
+                if(wrapAccountObj.selected == true) {
+                    selectedAccounts.add(wrapAccountObj.acc);
+                }
+            }
+
+            if (selectedAccounts.isEmpty()) {
+                Database.rollback(sp);                
+            }
+            else {
+                List<Account_Message__c> accountsMessages = new List<Account_Message__c>();
+                Account_Message__c anAccountMessage;
+                for (Account anAccount : selectedAccounts) {
+                    anAccountMessage = new Account_Message__c();
+                    anAccountMessage.Name = anAccount.Name + ' - ' + anMessage.Description__c;
+                    anAccountMessage.Cuenta__c = anAccount.Id;
+                    anAccountMessage.Message__c = anMessage.Id;
+                    accountsMessages.add(anAccountMessage);
+                }        
+                Insert(accountsMessages);                    
             }
         }
 
-        Message__c anMessage = new Message__c();
-        anMessage.Name = message.left(80);
-        anMessage.Description__c = message.left(255);
-        Insert(anMessage);
-
-        List<Account_Message__c> accountsMessages = new List<Account_Message__c>();
-        Account_Message__c anAccountMessage;
-        for (Account anAccount : selectedAccounts) {
-            anAccountMessage = new Account_Message__c();
-            anAccountMessage.Name = anAccount.Name + ' - ' + anMessage.Description__c;
-            anAccountMessage.Cuenta__c = anAccount.Id;
-            anAccountMessage.Message__c = anMessage.Id;
-            accountsMessages.add(anAccountMessage);
-        }        
-        Insert(accountsMessages);
     }
 
     // This is our wrapper/container class. A container class is a class, a data structure, or an abstract data type whose instances are collections of other objects. In this example a wrapper class contains both the standard salesforce object Account and a Boolean value
