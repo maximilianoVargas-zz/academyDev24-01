@@ -1,4 +1,4 @@
-trigger CaseTrigger on Case (after update) {
+trigger CaseTrigger on Case (after update, after insert) {
     if(Trigger.isAfter){
         if(Trigger.isUpdate){
             List<Case> cases = new List<Case>();

@@ -17,10 +17,10 @@ public with sharing class AccountManage {
         string name, integer numberOfEmployees, 
         string documentType, string documentNumber
         ){
-        Account anAccount = consultAccount(documentType, documentNumber);
-        anAccount.Name = name;
-        anAccount.numberOfEmployees = numberOfEmployees;
-        Database.SaveResult result = Database.update(anAccount,false);
+            Account anAccount = consultAccount(documentType, documentNumber);
+            anAccount.Name = name;
+            anAccount.numberOfEmployees = numberOfEmployees;
+            Database.SaveResult result = Database.update(anAccount,false);
 
         return result.isSuccess();
     }
@@ -28,10 +28,10 @@ public with sharing class AccountManage {
     public static Boolean deleteAccount( 
         string documentType, string documentNumber
         ){
-        Account anAccount = consultAccount(documentType, documentNumber);
-        Database.DeleteResult result = Database.delete(anAccount,false);
+            Account anAccount = consultAccount(documentType, documentNumber);
+            Database.DeleteResult result = Database.delete(anAccount,false);
 
-        return result.isSuccess();
+            return result.isSuccess();
     }
 
     public static Account consultAccount(string documentType, string documentNumber){
