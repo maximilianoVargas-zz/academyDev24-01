@@ -25,7 +25,8 @@ public with sharing class AccountManage {
                                 from Account
                                 where Document_number__c = :document_number
                                 and Identification_type__c = :document_type
-                                and Name = :name];
+                                and Name = :name
+                                LIMIT 1];
             if(accounts.isEmpty()) return false;
             Account anAccount = accounts[0];
             anAccount.Name = name;

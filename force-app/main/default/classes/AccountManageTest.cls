@@ -1,9 +1,24 @@
 @isTest
 public with sharing class AccountManageTest {
     @isTest static void testWhenCreateAnOpportunity() {
-        Account carlos = generateAccount('carlos', 'NIT', '3214567890', true);
-        Account carlitos = generateAccount('carlitos', 'NIT', '3214567891', false);
-        Account carla = generateAccount('carla', 'NIT', '3214567892', true);
+        Account carlos = new Account(
+            Name = 'carlos', 
+            Identification_type__c = 'NIT', 
+            Document_number__c = '3214567890', 
+            Create_opportunity__c = true
+        );
+        Account carlitos = new Account(
+            Name = 'carlitos', 
+            Identification_type__c = 'NIT', 
+            Document_number__c = '3214567891', 
+            Create_opportunity__c = false
+        );
+        Account carla = new Account(
+            Name = 'carla', 
+            Identification_type__c = 'NIT', 
+            Document_number__c = '3214567892', 
+            Create_opportunity__c = true
+        );
         List<Account> accounts = new List<Account>();
         accounts.add(carlos);
         accounts.add(carlitos);
@@ -27,9 +42,9 @@ public with sharing class AccountManageTest {
             FROM Opportunity
             WHERE AccountId = :carla.Id
         ];  
-        System.assert(!oppCarlos.isEmpty());
-        System.assert(oppCarlitos.isEmpty());
-        System.assert(!oppCarla.isEmpty());
+        System.assert(!oppCarlos.isEmpty(), 'Carlos must have an assosiated opportunity');
+        System.assert(oppCarlitos.isEmpty(), 'Carlitos must not have any assosiated opportunities');
+        System.assert(!oppCarla.isEmpty(), 'Carla must have an assosiated opportunity');
     }
 
     @isTest static void createAccountWithNullParameterMustThrowAnException(){
@@ -50,8 +65,10 @@ public with sharing class AccountManageTest {
         }
         Test.stopTest();
 
-        System.assert(thereIsException);
-        System.assertEquals('The parameters must not be null', textException);
+        System.assert(thereIsException, 'It must throw an illegal argument exception');
+        System.assertEquals('The parameters must not be null', 
+            textException, 'The exception messagge is not correct'
+        );
     }
 
     @isTest static void createAccountSuccessful(){
@@ -70,10 +87,14 @@ public with sharing class AccountManageTest {
             LIMIT 1
         ];
 
-        System.assertEquals('account1', result.Name);
-        System.assertEquals(3, result.NumberOfEmployees);
-        System.assertEquals('NIT', result.Identification_type__c);
-        System.assertEquals('1234567890', result.Document_number__c);
+        System.assertEquals('account1', result.Name, 'The account name does not match');
+        System.assertEquals(3, result.NumberOfEmployees, 
+            'The number of employees of the account does not match'
+        );
+        System.assertEquals('NIT', result.Identification_type__c, 
+            'The account identification type does not match'
+        );
+        System.assertEquals('1234567890', result.Document_number__c, 'The document number does not match');
     }
 
 
@@ -96,7 +117,7 @@ public with sharing class AccountManageTest {
         Boolean result = AccountManage.UpdateAccount(name, number_employees, document_type, document_number);
         Test.stopTest();
 
-        System.assertEquals(false, result);
+        System.assertEquals(false, result, 'The expected boolean result does not match');
     }
 
     @isTest static void updateAccountSuccessful(){
@@ -124,11 +145,11 @@ public with sharing class AccountManageTest {
             LIMIT 1
         ];
 
-        System.assert(result);
-        System.assertEquals('account1', accountResult.Name);
-        System.assertEquals(5, accountResult.NumberOfEmployees);
-        System.assertEquals('NIT', accountResult.Identification_type__c);
-        System.assertEquals('1234567890', accountResult.Document_number__c);
+        System.assert(result, 'The expected boolean result does not match');
+        System.assertEquals('account1', accountResult.Name, 'The account name does not match');
+        System.assertEquals(5, accountResult.NumberOfEmployees, 'The number of employees does not match');
+        System.assertEquals('NIT', accountResult.Identification_type__c, 'The identification type does not match');
+        System.assertEquals('1234567890', accountResult.Document_number__c, 'The document number does not match');
     }
 
     @isTest static void deleteAccountWhenDoesNotExistTheAccount(){
@@ -148,7 +169,7 @@ public with sharing class AccountManageTest {
         Boolean result = AccountManage.deleteAccount(document_type, document_number);
         Test.stopTest();
 
-        System.assert(!result);
+        System.assert(!result, 'The boolean result does not match, it must be false');
     }
 
     @isTest static void deleteAccountSuccessful(){
@@ -168,7 +189,7 @@ public with sharing class AccountManageTest {
         Boolean result = AccountManage.deleteAccount(document_type, document_number);
         Test.stopTest();
 
-        System.assert(result);
+        System.assert(result, 'The boolean result does not match, it must be true');
     }
 
     @isTest static void consultAccountWhenExistsTheAccount(){
@@ -201,10 +222,10 @@ public with sharing class AccountManageTest {
         Account result = AccountManage.consultAccount(document_type, document_number);
         Test.stopTest();
 
-        System.assertEquals(name, result.Name);
-        System.assertEquals(number_employees, result.NumberOfEmployees);
-        System.assertEquals(document_type, result.Identification_type__c);
-        System.assertEquals(document_number, result.Document_number__c);
+        System.assertEquals(name, result.Name, 'The account name does not match');
+        System.assertEquals(number_employees, result.NumberOfEmployees, 'The number of employees does not match');
+        System.assertEquals(document_type, result.Identification_type__c, 'The identification type does not match');
+        System.assertEquals(document_number, result.Document_number__c, 'The document number does not match');
     }
 
     @isTest static void consultAccountWhenNotExistsTheAccount(){
@@ -237,16 +258,6 @@ public with sharing class AccountManageTest {
         Account result = AccountManage.consultAccount(document_type, document_number);
         Test.stopTest();
 
-        System.assertEquals(null, result);
-    }
-
-
-    private static Account generateAccount(String nombre, String tipo, String documento, Boolean crear_oportunidad) {
-        return new Account(
-            Name = nombre,
-            Identification_type__c = tipo,
-            Document_number__c = documento,
-            Create_opportunity__c = crear_oportunidad
-        );
+        System.assertEquals(null, result, 'The account is not null');
     }
 }
