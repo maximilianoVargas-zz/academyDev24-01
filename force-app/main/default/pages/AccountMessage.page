@@ -1,0 +1,41 @@
+<apex:page controller="AccountMessageController">
+    <script type="text/javascript">
+        function selectAllCheckboxes(obj,receivedInputID){
+            var inputCheckBox = document.getElementsByTagName("input");                  
+            for(var i=0; i<inputCheckBox.length; i++){          
+                if(inputCheckBox[i].id.indexOf(receivedInputID)!=-1){                                     
+                    inputCheckBox[i].checked = obj.checked;
+                }
+            }
+        }
+    </script>
+    <apex:form >
+        <apex:pageBlock >
+            <apex:pageblockSection title="All Accounts" collapsible="false" columns="2">
+             
+                <apex:pageBlockTable value="{!wrapperAccounts}" var="aWrapperAccount" id="table" title="All Accounts">
+                    <apex:column >
+                        <apex:facet name="header">
+                            <apex:inputCheckbox onclick="selectAllCheckboxes(this,'inputId')"/>
+                        </apex:facet>
+                        <apex:inputCheckbox value="{!aWrapperAccount.isChecked}" id="inputId"/>
+                    </apex:column>
+                    <apex:column value="{!aWrapperAccount.anAccount.Name}" />
+                    <apex:column value="{!aWrapperAccount.anAccount.BillingState}" />
+                    <apex:column value="{!aWrapperAccount.anAccount.Phone}" />
+                </apex:pageBlockTable>          
+            </apex:pageblockSection>
+        </apex:pageBlock>
+    </apex:form>
+            <apex:pageBlockSection>
+              
+                <apex:form>
+                    <apex:inputText value="{!messageDescription}"></apex:inputText>
+                    <apex:commandButton value="Save Message" action="{!save}" />
+                </apex:form>
+            </apex:pageblockSection>
+            
+        
+    
+   
+</apex:page>
