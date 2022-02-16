@@ -28,7 +28,7 @@ private class AccountServiceTest {
     } 
     
     @isTest
-    static void whenMakeHttpGetToAccountsWithId_ThenReturnTheAccountWithThatId() {         
+    static void whenMakeHttpGetToAccountsWithIdThenReturnTheAccountWithThatId() {         
         Account acc = [
             SELECT Id, Name
             FROM Account
@@ -47,7 +47,7 @@ private class AccountServiceTest {
     }
 
     @IsTest
-    static void whenMakeHttpGetToNonexistenAccount_ThenNullIsReturned(){
+    static void whenMakeHttpGetToNonexistenAccountThenNullIsReturned(){
         String nonExistantAccountId = 'nonexistant';
                 
         RestRequest request = new RestRequest();

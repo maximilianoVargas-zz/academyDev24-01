@@ -14,7 +14,7 @@ public with sharing class MessageAssignmentControllerTest {
     }
 
     @IsTest
-    static void whenControllerIsInstantiated_ExactlyTenAccountsAreRetrieved(){
+    static void whenControllerIsInstantiatedExactlyTenAccountsAreRetrieved(){
         Test.startTest();
         MessageAssignmentController controller = new MessageAssignmentController();
         Test.stopTest();
@@ -23,7 +23,7 @@ public with sharing class MessageAssignmentControllerTest {
     }
 
     @IsTest
-    static void whenTryToCreateMessageWithZeroAccountsSelected_ThenNoCreationIsMade_AndErrorMessageIsShown(){
+    static void whenTryToCreateMessageWithZeroAccountsSelectedThenNoCreationIsMadeAndErrorMessageIsShown(){
         MessageAssignmentController controller = new MessageAssignmentController();
         // Update description
         controller.description = 'description';
@@ -42,7 +42,7 @@ public with sharing class MessageAssignmentControllerTest {
     }
 
     @IsTest
-    static void whenTryToCreateMessageWithNoDescription_ThenNoCreationIsMade_AndErrorMessageIsShown(){
+    static void whenTryToCreateMessageWithNoDescriptionThenNoCreationIsMadeAndErrorMessageIsShown(){
         MessageAssignmentController controller = new MessageAssignmentController();
         // Select 2 accounts
         for (Integer i = 0; i < 2; i++) {
@@ -63,7 +63,7 @@ public with sharing class MessageAssignmentControllerTest {
     }
 
     @IsTest
-    static void whenTryToCreateMessageWithSomeAccountsSelected_ThenCreationIsSuccessful_AndSuccessMessageIsShown_AndErrorMessageIsNotShown(){
+    static void whenTryToCreateMessageWithSomeAccountsSelectedThenCreationIsSuccessfulAndSuccessMessageIsShownAndErrorMessageIsNotShown(){
         MessageAssignmentController controller = new MessageAssignmentController();
         // Select 2 accounts
         for (Integer i = 0; i < 2; i++) {

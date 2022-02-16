@@ -45,7 +45,7 @@ public with sharing class CaseTriggerTest {
     }
     
     @isTest
-    public static void whenCaseIsCreated_IfUnassignedTaskWithCreationDateLessThanTwoMinutesExist_ThenCaseIsAssignedToTask() {
+    public static void whenCaseIsCreatedIfUnassignedTaskWithCreationDateLessThanTwoMinutesExistThenCaseIsAssignedToTask() {
         Contact aContact = [
             SELECT Id
             FROM Contact
@@ -80,7 +80,7 @@ public with sharing class CaseTriggerTest {
     }
 
     @isTest
-    public static void whenCaseIsCreated_IfUnassignedTaskWithCreationDateMoreThanTwoMinutesExist_ThenNothingHappens() {
+    public static void whenCaseIsCreatedIfUnassignedTaskWithCreationDateMoreThanTwoMinutesExistThenNothingHappens() {
         Contact aContact = [
             SELECT Id
             FROM Contact
@@ -116,7 +116,7 @@ public with sharing class CaseTriggerTest {
     }
 
     @isTest
-    public static void whenCaseResultFieldIsUpdated_ThenParentCaseIsAlsoUpdated() {
+    public static void whenCaseResultFieldIsUpdatedThenParentCaseIsAlsoUpdated() {
         List<Case> childCases = [
             SELECT Id, Result__c
             FROM Case
@@ -144,7 +144,7 @@ public with sharing class CaseTriggerTest {
     }
 
     @isTest
-    public static void whenCaseResultFieldIsLeftBlank_ThenParentCaseIsAlsoLeftBlank() {
+    public static void whenCaseResultFieldIsLeftBlankThenParentCaseIsAlsoLeftBlank() {
         List<Case> childCases = [
             SELECT Id
             FROM Case
