@@ -43,9 +43,11 @@ public with sharing class AccountApiServiceTest {
         request.requestURI = 'https://mindful-goat-vwsyqb-dev-ed.my.salesforce.com/services/apexrest/SpecialQuery/Account/' +
                             requestId;
         request.httpMethod = 'GET';
-        RestContext.request = request;
-        
+
+        Test.startTest();
+        RestContext.request = request;        
         Account response = AccountApiService.getAccountById();
+        Test.stopTest();
 
         System.assertEquals('Main Contact', response.Contacts[0].Name, 'Not main contact');
         System.assertEquals('Latest Opportunity', response.Opportunities[0].Name, 'Not latest opportunity');
@@ -57,9 +59,12 @@ public with sharing class AccountApiServiceTest {
         request.requestURI = 'https://mindful-goat-vwsyqb-dev-ed.my.salesforce.com/services/apexrest/SpecialQuery/Account/' +
                             requestId;
         request.httpMethod = 'GET';
-        RestContext.request = request;
-        
+
+
+        Test.startTest();
+        RestContext.request = request;        
         Account response = AccountApiService.getAccountById();
+        Test.stopTest();
 
         System.assertEquals(null, response, 'Found something other than null');
     }
