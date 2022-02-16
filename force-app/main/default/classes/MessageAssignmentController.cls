@@ -52,7 +52,6 @@ public with sharing class MessageAssignmentController {
             Description__c = this.description
         );
         insert message;
-        system.debug('Message created');
 
         // Assign message to Accounts. It is a M-N relationship
         List<Message_Account_Association__c> associations = new List<Message_Account_Association__c>();
@@ -66,7 +65,6 @@ public with sharing class MessageAssignmentController {
             }
         }
         insert associations;
-        system.debug('Message_Account_Associations created');
         this.showSuccessMessage = true;
     }
 
