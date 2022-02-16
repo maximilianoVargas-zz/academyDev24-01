@@ -1,5 +1,5 @@
 @isTest
-public with sharing class AccountMessageControllerTest {
+private class AccountMessageControllerTest {
     @TestSetup
     static void makeData(){
         List<Account> accounts = new List<Account>();
