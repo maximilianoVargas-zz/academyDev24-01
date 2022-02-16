@@ -12,7 +12,9 @@ public with sharing class PokeApiServiceTest {
         Test.setMock(HttpCalloutMock.class, mock);
 
         // Call method to test
+        Test.startTest();
         HttpResponse result = PokeApiService.getPokemonByName('ditto');
+        Test.stopTest();
 
         // Verify mock response is not null
         System.assertNotEquals(null, result, 'The callout returned a null response.');

@@ -40,7 +40,9 @@ private class AccountServiceTest {
         request.httpMethod = 'GET';
         RestContext.request = request;
 
+        Test.startTest();
         Account thisAccount = AccountService.getAccount();
+        Test.stopTest();
 
         System.assert(thisAccount != null, 'The account cant be null');
         System.assertEquals(acc.Name, thisAccount.Name, 'The account retrieved must be the same as the variable "acc"');
@@ -55,7 +57,9 @@ private class AccountServiceTest {
         request.httpMethod = 'GET';
         RestContext.request = request;
 
+        Test.startTest();
         Account thisAccount = AccountService.getAccount();
+        Test.stopTest();
 
         System.assertEquals(null, thisAccount, 'The account must be null');
     }
