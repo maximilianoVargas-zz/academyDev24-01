@@ -23,6 +23,7 @@
                     <apex:column value="{!aWrapperAccount.anAccount.Name}" />
                     <apex:column value="{!aWrapperAccount.anAccount.BillingState}" />
                     <apex:column value="{!aWrapperAccount.anAccount.Phone}" />
+                    
                 </apex:pageBlockTable>          
             </apex:pageblockSection>
         </apex:pageBlock>
@@ -33,7 +34,7 @@
                     <apex:inputText value="{!messageDescription}"></apex:inputText>
                     <apex:commandButton value="Save Message" action="{!save}" />
                 </apex:form>
-            </apex:pageblockSection>
+            </apex:pageBlockSection>
             
         
     
