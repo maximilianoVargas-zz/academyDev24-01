@@ -13,15 +13,20 @@ public with sharing class MessageAccountControllerTest {
     }
 
     @isTest
-    static void whenMessageOrSelectedListAreEmpty() {
+    static void whenControllerIsIntancied() {
         MessageAccountsController myController = new MessageAccountsController();
         System.assertEquals(10, myController.wrapAccountList.size(), 'The accounts no match');
+    }
+
+    @isTest
+    static void whenMessageOrSelectedListAreEmpty() {
+        MessageAccountsController myController = new MessageAccountsController();
         myController.save();
-        Message__c[] aMessage = [SELECT Id, Name FROM Message__c];
+        List<Message__c> aMessage = [SELECT Id, Name FROM Message__c];
         System.assertEquals(0, aMessage.size(), 'Message Created');
         myController.message = 'Test Message';
         myController.save();
-        Message__c[] aMessageRevalidate = [SELECT Id, Name FROM Message__c];
+        List<Message__c> aMessageRevalidate = [SELECT Id, Name FROM Message__c];
         System.assertEquals(0, aMessageRevalidate.size(), 'Message Created');
     }
 
@@ -34,7 +39,7 @@ public with sharing class MessageAccountControllerTest {
         myController.processAccountSelected();
         myController.message = 'Test Message';
         myController.save();
-        Message__c[] aMessage = [SELECT Id, Name FROM Message__c];
+        List<Message__c> aMessage = [SELECT Id, Name FROM Message__c];
         System.assertEquals(1, aMessage.size(), 'No message created');
         MessageInAccount__c[] messages = [SELECT Id FROM MessageInAccount__c];
         System.assertEquals(10, messages.size(), 'No messages in accounts created');
