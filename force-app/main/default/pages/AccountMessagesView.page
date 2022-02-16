@@ -1,0 +1,22 @@
+<apex:page controller="AccountMessagesController">
+    <apex:form>
+        <apex:pageBlock title="Accounts List">
+            <apex:pageBlockTable value="{!accounts}" var="anAccount">
+                <apex:column>                    
+                    <apex:inputCheckbox value="{!anAccount.selected}"/>
+                </apex:column>
+                <apex:column value="{!anAccount.account.Id}"/>
+                <apex:column value="{!anAccount.account.Name}"/>
+            </apex:pageBlockTable>
+        </apex:pageBlock>
+
+        <apex:pageBlock title="Message">
+            <apex:pageBlockSection>                
+                <apex:inputTextarea value="{!description}"/>                
+            </apex:pageBlockSection>
+            <apex:pageBlockButtons>
+                    <apex:commandButton value="Save" action="{!saveMessage}"/>
+            </apex:pageBlockButtons>
+        </apex:pageBlock>
+    </apex:form>
+</apex:page>
