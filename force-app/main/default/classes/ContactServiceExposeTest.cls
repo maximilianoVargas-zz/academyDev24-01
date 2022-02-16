@@ -36,6 +36,7 @@ public with sharing class ContactServiceExposeTest {
             WHERE Name = 'Globant'
         ];
         // Set up a test request
+        Test.startTest();
         RestRequest request = new RestRequest();
         request.requestUri =
             'https://globant370-dev-ed.lightning.force.com/services/apexrest/Cases/'
@@ -44,6 +45,7 @@ public with sharing class ContactServiceExposeTest {
         RestContext.request = request;
         // Call the method to test
         ContactServiceExpose.CustomContactWrapper thisCase = ContactServiceExpose.getNamePrincicalAndLastOppurtunity();
+        Test.stopTest();
         // Verify results
         System.assert(thisCase != null);
         System.assertEquals('Globant', thisCase.Name);

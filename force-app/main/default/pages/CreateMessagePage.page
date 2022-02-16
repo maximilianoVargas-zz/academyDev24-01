@@ -1,0 +1,14 @@
+<apex:page controller="CreateMessagePageController">
+    <apex:pageBlock>
+        <apex:pageBlockSection>
+            <apex:form>
+                <apex:pageBlockTable value="{!WrapperAcounts}" var="container" id="accountsTable">
+                    <apex:column>
+                        <apex:inputCheckbox value="{!container.isSelected}" id="inputId"/>
+                    </apex:column>                    
+                    <apex:column value="{!container.anAccount.Name}"/>                
+                </apex:pageBlockTable>
+            </apex:form>
+        </apex:pageBlockSection>
+    </apex:pageBlock>
+</apex:page>
