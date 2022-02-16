@@ -12,10 +12,13 @@ public with sharing class CaseTriggerHandler {
 
         DateTime initialDate = DateTime.now().addMinutes(-2);
 
-        List<Task> tasks = [Select Id, WhoId 
-                            From Task Where WhoId IN :casesByContactId.keySet() 
-                            AND CreatedDate >= :initialDate 
-                            AND WhatId = NULL];
+        List<Task> tasks = [
+            Select Id, WhoId 
+            From Task 
+            Where WhoId IN :casesByContactId.keySet() 
+            AND CreatedDate >= :initialDate 
+            AND WhatId = NULL
+        ];
               
         for (Task aTask : tasks) {
             Case aCase = casesByContactId.get(aTask.WhoId);
@@ -27,8 +30,11 @@ public with sharing class CaseTriggerHandler {
 
     public static void updateResultInAssociatedCases(List<Case> cases) {
 
-        List<Case> casesToUpdate = [Select Id, Result__c, Parent.Result__c 
-                                    From Case Where ParentId IN :cases];
+        List<Case> casesToUpdate = [
+            Select Id, Result__c, Parent.Result__c 
+            From Case 
+            Where ParentId IN :cases
+        ];
         
         for (Case aCase : casesToUpdate) {
             aCase.Result__c = aCase.Parent.Result__c;

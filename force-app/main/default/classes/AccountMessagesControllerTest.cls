@@ -3,20 +3,18 @@ public with sharing class AccountMessagesControllerTest {
     
     @TestSetup
     static void makeData(){
-        Account account1 = new Account(
-            Name = 'Cuenta 1',
-            Identification_type__c = 'NIT', 
-            Document_number__c = '1234'
-        );
 
-        Account account2 = new Account(
-            Name = 'Cuenta 2',
-            Identification_type__c = 'NIT', 
-            Document_number__c = '12345'
-        );
+        List<Account> accounts = new List<Account>();
+        for (Integer i = 1;  i <= 10; i++) {
+            Account anAccount = new Account(
+                Name = 'Cuenta ' +i,
+                Identification_type__c = 'NIT', 
+                Document_number__c = '1234' + i
+            );
+            accounts.add(anAccount);
+        }
+        insert accounts;
 
-        insert account1;
-        insert account2;
     }
 
     @IsTest static void shouldGetAllAccounts() {
@@ -24,17 +22,21 @@ public with sharing class AccountMessagesControllerTest {
         AccountMessagesController anController = new AccountMessagesController();
 
         Test.startTest();
-        List<AccountSelected> accounts = anController.getAccounts();
+        List<AccountMessagesController.AccountSelected> accounts = anController.getAccounts();
         Test.stopTest();
 
-        System.assertEquals(2, accounts.size(), 'Should be two accounts');
+        System.assertEquals(10, accounts.size(), 'Should be 10 accounts');
     }
 
     @IsTest static void shouldSaveTheMessageAndRelatedWitheAccountList() {
         
         AccountMessagesController anController = new AccountMessagesController();
         anController.description = 'Mensaje prueba';
-        anController.accountsSelected = createAccountsSelected();
+        
+        List<AccountMessagesController.AccountSelected> accounts = anController.getAccounts();
+        for (AccountMessagesController.AccountSelected anAccountSelected : accounts) {
+            anAccountSelected.selected = true;
+        }
 
         Test.startTest();
         anController.saveMessage();
@@ -47,7 +49,7 @@ public with sharing class AccountMessagesControllerTest {
             FROM Account
         ];
 
-        System.assertEquals(2, accountsResult.size(), 'Should be two accounts');
+        System.assertEquals(10, accountsResult.size(), 'Should be 10 accounts');
 
         for (Account anAccount : accountsResult) {
             System.assertEquals(1, anAccount.AccountMessageAssociations__r.size(), 'Should be one message related');            
@@ -57,15 +59,4 @@ public with sharing class AccountMessagesControllerTest {
 
     }
 
-    private static List<AccountSelected> createAccountsSelected() {
-
-        List<AccountSelected> accountsSelected = new List<AccountSelected>();
-
-        for (Account anAccount : [SELECT Id FROM Account]) {
-            AccountSelected accountSelected = new AccountSelected(true, anAccount);
-            accountsSelected.add(accountSelected);
-        }
-
-        return accountsSelected;
-    }
 }

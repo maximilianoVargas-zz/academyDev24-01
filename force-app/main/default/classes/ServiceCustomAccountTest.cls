@@ -34,7 +34,9 @@ public with sharing class ServiceCustomAccountTest {
         request.httpMethod = 'GET';
         RestContext.request = request;
 
+        Test.startTest();
         AccountData accountData = ServiceCustomAccount.getAccountData();
+        Test.stopTest();
         
         System.assert(accountData != null);
         System.assert(accountData.account != null);
