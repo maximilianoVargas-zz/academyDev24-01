@@ -11,7 +11,7 @@
     </script>    
 <!-- Begin Default Content REMOVE THIS -->
 <h1>Congratulations</h1>
-This is your new Page
+Exercise Visualforce v1.0
 <!-- End Default Content REMOVE THIS -->
     <apex:form >
         <apex:pageBlock >
