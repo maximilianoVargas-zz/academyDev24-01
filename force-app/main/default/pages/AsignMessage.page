@@ -1,0 +1,19 @@
+<apex:page controller="AsignMessageController">
+    <apex:pageBlock>
+        <apex:form>
+            <apex:pageBlockSection>
+                <apex:pageBlockTable value="{! wrappers}" var="w">
+                    <apex:column value="{! w.account.Id}"/>
+                    <apex:column value="{! w.account.Name}"/>
+                    <apex:column>
+                        <apex:inputCheckbox value="{! w.edit}" />
+                    </apex:column>
+                </apex:pageBlockTable>
+            </apex:pageBlockSection>
+            <apex:pageBlockSection>
+                <apex:inputTextarea label="Description" value="{! message.description__c}"></apex:inputTextarea>
+                <apex:commandButton value="Save" action="{! asignMessages}" ></apex:commandButton>
+            </apex:pageBlockSection>
+        </apex:form>
+    </apex:pageBlock>
+</apex:page>
