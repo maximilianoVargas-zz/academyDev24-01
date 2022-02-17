@@ -1,0 +1,20 @@
+<apex:page controller="AccountMessageController">
+    <apex:form >
+        <apex:pageBlock title="Account List" id="account_list">
+            <apex:pageMessages/>
+            <apex:pageBlockTable value="{! wrapperAccounts }" var="Acc">
+                <apex:column value="{! Acc.anAccount.Id}"/>
+                <apex:column value="{! Acc.anAccount.Name }"/>
+                <apex:column headerValue="Send Message?">
+                    <apex:inputCheckbox value="{!Acc.isChecked}" ></apex:inputCheckbox>
+                </apex:column>
+            </apex:pageBlockTable>
+            <center>
+                <br/>
+                <apex:inputText value="{!messageDescription}"></apex:inputText>
+                <br/> <br/>
+                <apex:commandButton value="Save" action="{!save}" ></apex:commandButton>
+            </center>
+        </apex:pageBlock>   
+    </apex:form>
+</apex:page>

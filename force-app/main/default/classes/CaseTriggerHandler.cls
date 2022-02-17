@@ -1,0 +1,46 @@
+public with sharing class CaseTriggerHandler {
+    public static void realatedTask(List<Case> cases) {
+        Map<Id, Case> casesByContactId = new Map<Id, Case>();
+
+            for (Case aCase : cases) {
+                casesByContactId.put(aCase.ContactId, aCase);
+            }
+
+            Datetime aDate = Datetime.now().addMinutes(-2);
+
+            List<Task> tasks = [
+                SELECT Id, WhoId
+                FROM Task
+                WHERE WhatId = null
+                AND WhoId IN :casesByContactId.keySet()
+                AND CreatedDate >= :aDate
+            ];
+
+            for (Task aTask : tasks) {
+                Case aCase = casesByContactId.get(aTask.WhoId);
+                aTask.WhatId = aCase.Id;
+            }
+
+            update tasks;
+    }
+
+    public static void UpdatePrincipalCase(List<Case> Cases){
+
+        List<Case> CasesUpdate=new List<Case>();
+
+        for (Case aCase : Cases) {
+            if (aCase.ParentId!=null) {
+
+                Case PrincipalCase=[
+                    SELECT Id, Result__c 
+                    FROM Case 
+                    WHERE Id=:aCase.ParentId];
+
+                PrincipalCase.Result__c=aCase.Result__c;
+                CasesUpdate.add(PrincipalCase);    
+            }
+        }
+
+        update CasesUpdate;
+    }   
+}
