@@ -6,40 +6,23 @@ public with sharing class AccountApiTest {
         Account account = new Account(Name='examplename');
         insert account;
 
-        Opportunity opp1=new Opportunity();
-        opp1.AccountId=account.Id;
-        opp1.Name='oppname1';
-        opp1.StageName='stagename1';
-        opp1.CloseDate=Date.newInstance(2022, 03, 03);
-        opp1.Description='desc1';
+        Opportunity opportunity2=new Opportunity(AccountId=account.Id,Name='oppname2',StageName='stagename2',CloseDate=Date.newInstance(2022, 03, 03),Description='desc2');
+        List<Opportunity> opportunities=new List<Opportunity>{
+            new Opportunity(AccountId=account.Id,Name='oppname1',StageName='stagename1',CloseDate=Date.newInstance(2022, 03, 03),Description='desc1'), opportunity2
+        };
 
-        Opportunity opp2=new Opportunity();
-        opp2.AccountId=account.Id;
-        opp2.Name='oppname2';
-        opp2.StageName='stagename2';
-        opp2.CloseDate=Date.newInstance(2022, 03, 03);
-        opp2.Description='desc2';
+        List<Contact> contacts=new List<Contact>{
+            new Contact(AccountId=account.Id, Level__c='Primary',FirstName='name1',LastName='lastname1'),
+            new Contact(AccountId=account.Id, Level__c='Secondary',FirstName='name2',LastName='lastname2')
+        };
 
-        Contact contact1=new Contact();
-        contact1.AccountId=account.Id;
-        contact1.Level__c='Primary';
-        contact1.FirstName='name1';
-        contact1.LastName='lastname1';
 
-        Contact contact2=new Contact();
-        contact2.AccountId=account.Id;
-        contact2.Level__c='Secondary';
-        contact2.FirstName='name2';
-        contact2.LastName='lastname2';
+        insert contacts;
+        insert opportunities;
 
-        insert contact1;
-        insert contact2;
-
-        insert opp1;
-        insert opp2;
 
         Datetime aDate = Datetime.now().addMinutes(10);
-        Test.setCreatedDate(opp2.Id, aDate);
+        Test.setCreatedDate(opportunity2.Id, aDate);
 
     }
 
