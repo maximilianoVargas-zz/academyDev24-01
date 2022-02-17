@@ -16,7 +16,7 @@ public with sharing class AccountTriggerTest {
     }
 
     @isTest
-    static void whenAccountWithSameIdentificationTypeAndDocumentNumberExists_ThenInsertFails() {
+    static void whenAccountWithSameIdentificationTypeAndDocumentNumberExistsThenInsertFails() {
         // Create repeated accounts
         List<Account> repeatedAccounts = new List<Account>();
         repeatedAccounts.add(new Account(
@@ -49,7 +49,7 @@ public with sharing class AccountTriggerTest {
     }
 
     @isTest
-    static void whenAccountWithUniqueIdentificationTypeAndDocumentNumberExists_ThenInsertSucceeds() {
+    static void whenAccountWithUniqueIdentificationTypeAndDocumentNumberExistsThenInsertSucceeds() {
         // Create new unique account
         Account acc = new Account(
             Name = 'Prueba',
@@ -71,7 +71,7 @@ public with sharing class AccountTriggerTest {
     }
 
     @isTest
-    static void whenUpdatingAccountToUniqueIdentificationTypeAndDocumentNumber_ThenUpdateSucceeds() {
+    static void whenUpdatingAccountToUniqueIdentificationTypeAndDocumentNumberThenUpdateSucceeds() {
         // Retrieve an account and update it
         Account acc = [
             SELECT Id
@@ -94,7 +94,7 @@ public with sharing class AccountTriggerTest {
     }
 
     @isTest
-    static void whenUpdatingAccountToRepeatedIdentificationTypeAndDocumentNumber_ThenUpdateFails() {
+    static void whenUpdatingAccountToRepeatedIdentificationTypeAndDocumentNumberThenUpdateFails() {
         // Retrieve an account and update it
         Account acc = [
             SELECT Id

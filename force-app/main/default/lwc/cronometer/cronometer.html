@@ -1,0 +1,29 @@
+<template>
+    <lightning-card title="Cronometer">
+        <lightning-layout>
+
+            <lightning-layout-item padding="around-small">
+                <p class="slds-text-align_center slds-var-m-vertical_medium">
+                    Seconds: 
+                    <lightning-formatted-number value={cronometerNumber}></lightning-formatted-number>
+                </p>
+            </lightning-layout-item>
+
+            <lightning-layout-item padding="around-small">
+                <c-button icon="utility:play" type="success" onbuttonclick={handleButtonClick}>
+                </c-button>
+            </lightning-layout-item>
+
+            <lightning-layout-item padding="around-small">
+                <c-button icon="utility:pause" type="brand" onbuttonclick={handleButtonClick}>
+                </c-button>
+            </lightning-layout-item>
+
+            <lightning-layout-item padding="around-small">
+                <c-button icon="utility:stop" type="destructive" onbuttonclick={handleButtonClick}>
+                </c-button>
+            </lightning-layout-item>
+
+        </lightning-layout>
+    </lightning-card>
+</template>

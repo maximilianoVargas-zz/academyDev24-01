@@ -1,0 +1,13 @@
+<template>
+    <lightning-card title="Account`s cases to close" icon-name="standard:case" > <br/>
+        <div style="height: 300px; width: auto;">
+            <lightning-datatable
+                    key-field="id"
+                    data={cases.data}
+                    columns={columns}>
+            </lightning-datatable>
+            <lightning-button onclick={handleclick} value="Close selected cases" label="Close selected cases">
+            </lightning-button>
+        </div>   
+    </lightning-card>
+</template>

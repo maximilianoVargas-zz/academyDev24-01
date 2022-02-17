@@ -21,7 +21,7 @@ public with sharing class AccountManageTest {
     }
 
     @isTest
-    public static void whenGivenAccountsWithCreateOpportunityCheckboxActivated_OpportunitiesAreCreatedRelatedToThoseAccounts() {        
+    public static void whenGivenAccountsWithCreateOpportunityCheckboxActivatedThenOpportunitiesAreCreatedRelatedToThoseAccounts() {        
         List<Account> accounts = [
             SELECT Id, Create_Opportunity__c, Name
             FROM Account
@@ -46,7 +46,7 @@ public with sharing class AccountManageTest {
     }
 
     @isTest
-    public static void whenAccountIsCreated_ThenWeCanThenGetItsData() {
+    public static void whenAccountIsCreatedThenWeCanThenGetItsData() {
         Test.startTest();
         String id = AccountManage.createAccount('name', 100, 'NIT', '12345678');
         Test.stopTest();
@@ -62,7 +62,7 @@ public with sharing class AccountManageTest {
     }
 
     @isTest
-    public static void whenExistentAccountIsUpdated_ThenWeCanSeeTheUpdatedInfo() {
+    public static void whenExistentAccountIsUpdatedThenWeCanSeeTheUpdatedInfo() {
         // Get any account
         Account account = [
             SELECT Id, Identification_Type__c, Document_Number__c
@@ -88,7 +88,7 @@ public with sharing class AccountManageTest {
     }
 
     @isTest
-    public static void whenNonexistentAccountIsUpdated_ThenUpdateFails() {
+    public static void whenNonexistentAccountIsUpdatedThenUpdateFails() {
         Test.startTest();
         Boolean result = AccountManage.updateAccount('updated', 101, 'i dont exist', 'i dont exist');
         Test.stopTest();
@@ -96,7 +96,7 @@ public with sharing class AccountManageTest {
     }
 
     @isTest
-    public static void whenExistentAccountIsConsulted_ThenWeGetItsData() {
+    public static void whenExistentAccountIsConsultedThenWeGetItsData() {
         // Get any account
         Account account = [
             SELECT ID, Name, NumberOfEmployees, Identification_Type__c, Document_Number__c
@@ -118,7 +118,7 @@ public with sharing class AccountManageTest {
     }
 
     @isTest
-    public static void whenNonexistentAccountIsConsulted_ThenNullIsReturned() {
+    public static void whenNonexistentAccountIsConsultedThenNullIsReturned() {
         Test.startTest();
         Account result = AccountManage.consultAccount('i dont exist', 'i dont exist');
         Test.stopTest();
@@ -126,7 +126,7 @@ public with sharing class AccountManageTest {
     }
 
     @isTest
-    public static void whenAccountIsDeleted_ThenWeCanNoLongerFindItInDatabase() {
+    public static void whenAccountIsDeletedThenWeCanNoLongerFindItInDatabase() {
         // Get any account
         Account account = [
             SELECT ID, Identification_Type__c, Document_Number__c
@@ -151,7 +151,7 @@ public with sharing class AccountManageTest {
     }
 
     @isTest
-    public static void whenNonexistentAccountIsDeleted_ThenDeleteFails() {
+    public static void whenNonexistentAccountIsDeletedThenDeleteFails() {
         Test.startTest();
         Boolean result = AccountManage.deleteAccount('i dont exist', 'i dont exist');
         Test.stopTest();
