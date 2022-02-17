@@ -128,7 +128,7 @@ public with sharing class CaseTriggerTest {
             where Subject='Caso Hijo'
         ];
 
-        System.assertEquals(aPrincipalCase.Result__c,aReleatedCase.Result__c);
+        System.assertEquals(aPrincipalCase.Result__c,aReleatedCase.Result__c,'The update was incorrect');
     }
 
     @isTest static void UpdatePrincipalCaseWhenReleatedCaseIsUpdatedWithEmptyValue(){
@@ -157,6 +157,6 @@ public with sharing class CaseTriggerTest {
             where Subject='Caso Hijo'
         ];
 
-        System.assertEquals(aPrincipalCase.Result__c,null);
+        System.assertEquals(aPrincipalCase.Result__c,null,'The Value is not empty');
     }
 }
