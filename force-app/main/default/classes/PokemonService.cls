@@ -10,7 +10,6 @@ public with sharing class PokemonService {
     }
 
     private static PokemonData calloutApi(string url){
-        System.debug(url);
         Http httpClient = new Http();
         HttpRequest request = new HttpRequest();
         PokemonData data = null;

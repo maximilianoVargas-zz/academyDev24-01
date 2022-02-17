@@ -1,8 +1,5 @@
 @RestResource(urlMapping='/AccountsApi/*')
 global with sharing class AccountApi {
-    public AccountApi() {
-
-    }
 
     @HttpGet
     global static Account getAccountById(){
@@ -22,7 +19,6 @@ global with sharing class AccountApi {
             FROM Account
             WHERE Id = :idAccount
         ];        
-        System.Debug(anAccount);        
         return anAccount;
     }
 }

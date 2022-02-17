@@ -1,6 +1,10 @@
 public with sharing class AccountManage {
     public AccountManage() {
-        /*
+ 
+    }
+
+    private static void CreateAccounts()
+    {
         List<Account> listAccounts = new List<Account>();
         for(Integer i=0; i<50; i++){
             Account cuenta = new Account();
@@ -8,8 +12,7 @@ public with sharing class AccountManage {
             cuenta.NumberOfEmployees = i*10;
             listAccounts.add(cuenta);
             }
-            insert listAccounts;
-        */      
+            insert listAccounts;                
     }
 
     public static void scriptUpdateAccount()
