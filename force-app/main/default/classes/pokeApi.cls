@@ -8,10 +8,6 @@ public class pokeApi {
         
         HttpResponse response = http.send(request);
 
-        // if(response.getStatusCode() == 200) {
-        //     Map<String, Object> results = (Map<String, Object>) JSON.deserializeUntyped(response.getBody());
-        //     List<Object> pokemonForm = (List<Object>) results.get('forms');
-        // }
         return response;
     }       
 }

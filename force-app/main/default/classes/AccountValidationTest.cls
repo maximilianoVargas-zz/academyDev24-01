@@ -1,50 +1,43 @@
 @isTest
 private with sharing class AccountValidationTest {
     @isTest
-    static void testApproveAccount(){
+    static void testValidateAccount(){
 
-        Account anAccount = new Account(
-            Name = 'Test',
+        Account account = new Account(
+            Name = 'TestAccount1',
             Identification_type__c = 'NIT',
             Document_number__c = '12345678'
-        );
+        ); 
+        insert account;   
 
-        Test.startTest();
-        Boolean result = AccountValidation.validateAccount(anAccount);
-        Test.stopTest();
-
-        System.assertEquals(true, result, 'Something went wrong when returning true or false.');
-    }
-    @isTest 
-    static void testAddError(){
-
-        Account anAccount = new Account(
-            Name = 'Test',
+        List<Account> accounts = new List<Account>(); 
+        accounts.add(new Account(
+            Name = 'TestAccount2',
+            Identification_type__c = 'NIT',
+            Document_number__c = '87654321'
+        ));   
+        accounts.add(new Account(
+            Name = 'TestAccount3',
             Identification_type__c = 'NIT',
             Document_number__c = '12345678'
-        );
-        insert anAccount;
-
-        Test.startTest();
-        Boolean result = AccountValidation.validateAccount(anAccount);
-        Test.stopTest();
-
-        System.assertEquals(false, result, 'Something went wrong when returning true or false.');
-    }
-    @isTest
-    static void testApproveAccountWhenHavingEmptyIdentificationTypeAndDocumentNumber(){
-
-        Account anAccount = new Account(
-            Name = 'Test',
+        ));
+        accounts.add(new Account(
+            Name = 'TestAccount4',
             Identification_type__c = Null,
             Document_number__c = Null
-        );
-        insert anAccount;
-
+        ));
+        
         Test.startTest();
-        Boolean result = AccountValidation.validateAccount(anAccount);
+        Database.SaveResult[] result = Database.insert(accounts,false);
         Test.stopTest();
 
-        System.assertEquals(true, result, 'Something went wrong when returning true or false.');
+        Integer errors = 0;
+        for(Database.SaveResult resultcheck : result){
+            if(resultcheck.isSuccess()==false){
+                errors = errors + 1;
+            }
+        }
+        
+        System.assertEquals(2, errors, 'Something went wrong when returning true or false.');
     }
 }
