@@ -42,26 +42,4 @@ global with sharing class AccountManager {
             this.anOpportunity = anOpportunity;
         }
     }
-
-
 }
-
-/*@RestResource(urlMapping='/Accounts/*/
-/*contacts')
-global without sharing class AccountManager {
-    @HttpGet
-    global static Account getAccount() {
-        Account anAccount;
-        RestRequest request = RestContext.request;
-        String accountId = request.requestURI.substringBetween('Accounts/','/contacts');
-
-            if (!String.isEmpty(accountId) ) {
-                anAccount = [
-                    SELECT Id, Name,(select Id, Name from contacts) 
-                    FROM Account 
-                    WHERE id = :accountId];
-            }
-
-            return anAccount;
-    }
-}*/

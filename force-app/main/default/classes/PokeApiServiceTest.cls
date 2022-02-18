@@ -10,7 +10,9 @@ private  class PokeApiServiceTest {
         // Associate the callout with a mock response
         Test.setMock(HttpCalloutMock.class, mock);
         // Call method to test
+        Test.startTest();
         HttpResponse result = PokeApiService.getPokemonByName('charmander');
+        Test.stopTest();
 
         // Verify mock response is not null
         System.assertNotEquals(null,result, 'The callout returned a null response.');

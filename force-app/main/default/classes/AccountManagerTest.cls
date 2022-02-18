@@ -1,23 +1,9 @@
 @IsTest
 public class AccountManagerTest {
-    @IsTest static void testGetAccountById() {
-        Id recordId = createTestRecord();
-        RestRequest request = new RestRequest();
-        request.requestUri =
-            'https://resourceful-hawk-kroan8-dev-ed.lightning.force.com/services/apexrest/AccountsCustom/'+ recordId;
-        request.httpMethod = 'GET';
-        RestContext.request = request;
 
-        AccountManager.WrapperResponse response = AccountManager.getAccountDetail();
+    @TestSetup
+    static void makeData(){
 
-        System.assert(response != null,'The account was not found');
-        System.assertEquals('New Account', response.anAccount.Name,'The account name matchs');
-        System.assertEquals('Principal', response.aContact.lastname,'The principal contact exists');
-        System.assertEquals('Opportunity Test', response.anOpportunity.Name,'The last Opportunity '+ response.anOpportunity.Name +'matchs');
-    }
-
-    //Helper Method
-    static Id createTestRecord() {
         Account anAccountTest = new Account(
             Name = 'Account Test'
             );
@@ -35,6 +21,31 @@ public class AccountManagerTest {
         opportunitiesTest.add(new Opportunity(Name = 'Opportunity Test',StageName = 'Prospecting',CloseDate = closeDate, accountId = anAccountTest.Id));
         insert opportunitiesTest;
 
-        return anAccountTest.Id;
-    }      
+    }
+
+    @IsTest static void testGetAccountById() {
+
+        List<Account> anAccount = [
+            SELECT Id
+            FROM Account
+            WHERE Name = 'Account Test'
+            LIMIT 1
+            ];
+        Id recordId = anAccount[0].Id;
+        
+        RestRequest request = new RestRequest();
+        request.requestUri =
+            'https://resourceful-hawk-kroan8-dev-ed.lightning.force.com/services/apexrest/AccountsCustom/'+ recordId;
+        request.httpMethod = 'GET';
+        RestContext.request = request;
+
+        Test.startTest();
+        AccountManager.WrapperResponse response = AccountManager.getAccountDetail();
+        Test.stopTest();
+
+        System.assert(response != null,'The account was not found');
+        System.assertEquals('Account Test', response.anAccount.Name,'The account name does not match');
+        System.assertEquals('Principal', response.aContact.lastname,'The principal contact does not exist');
+        System.assertEquals('Opportunity Test', response.anOpportunity.Name,'The last Opportunity '+ response.anOpportunity.Name +' does not match');
+    }  
 }
