@@ -1,0 +1,15 @@
+<template>
+    <lightning-card title="Stop Watch" icon-name="action:goal">
+        <div style="background: white;padding: 20px;border-radius: 6px;">
+            <div style="font-size: 40px;text-align:center;">
+                {timeVal}
+            </div>
+        <c-stopwatch-button
+            class="slds-show slds-is-relative"
+            onstart={start}
+            onstop={stop}
+            onreset={reset}>
+        </c-stopwatch-button>
+        </div>
+    </lightning-card>
+</template>
