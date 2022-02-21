@@ -1,0 +1,40 @@
+<apex:page controller="MessageDescriptionForAccountsController" sidebar="false">
+    <script type="text/javascript">
+        function selectAllCheckboxes(obj,receivedInputID){
+            var inputCheckBox = document.getElementsByTagName("input");                  
+            for(var i=0; i<inputCheckBox.length; i++){          
+                if(inputCheckBox[i].id.indexOf(receivedInputID)!=-1){                                     
+                    inputCheckBox[i].checked = obj.checked;
+                }
+            }
+        }
+    </script>
+    <apex:form id="theForm" >
+    <apex:pageBlock >
+        <!--<apex:pageMessages /> -->
+        <apex:messages />
+        <apex:pageBlockSection title="All Accounts" collapsible="false">
+            <apex:pageBlockTable value="{! wrappedAccountList}" var="accWrap" id="table">
+                <apex:column >
+                        <apex:facet name="header">
+                            <apex:inputCheckbox onclick="selectAllCheckboxes(this,'inputId')"/>
+                        </apex:facet>
+                        <apex:inputCheckbox value="{!accWrap.isAccountSelected}" id="inputId"/>
+                    </apex:column>
+                <apex:column value="{! accWrap.associatedAccount.Name}"/>
+                <apex:column value="{! accWrap.associatedAccount.Phone}"/>
+                <apex:column value="{! accWrap.associatedAccount.Type}"/>
+            </apex:pageBlockTable>
+            
+            <apex:pageBlockTable value="{!bindedMessages}" var="c" id="table2" title="Selected Accounts">
+                    <apex:column value="{!c.Account__c}" headerValue="Account"/>
+                    <apex:column value="{!c.Message__c}" headerValue="Message"/>
+                </apex:pageBlockTable>
+    </apex:pageBlockSection>
+    <apex:pageBlockSection>
+        <apex:inputTextarea value="{!description}">Descripción </apex:inputTextarea>
+        <apex:commandButton value="Save Message" action="{!addDescriptionToSelectedAccounts}" reRender="table2, theForm"/>
+    </apex:pageBlockSection>
+    </apex:pageBlock>
+</apex:form>
+</apex:page>

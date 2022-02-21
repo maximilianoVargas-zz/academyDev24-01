@@ -1,0 +1,13 @@
+<template>
+    <lightning-card title="Open Cases" >
+        <lightning-datatable 
+        class= "table"
+        aria-selected="true"
+        key-field="id"
+        data={cases.data}
+        columns={columns} 
+        onsave={handleClick}
+        draft-values={draftValues} >
+        </lightning-datatable>
+    </lightning-card>
+</template>

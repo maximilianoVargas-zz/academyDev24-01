@@ -1,0 +1,37 @@
+<template>
+    <lightning-card title="Cronometro" >
+        <lightning-layout>
+            <lightning-layout-item title="Timer" padding="around-small">
+                <p>
+                    Horas: <lightning-formatted-number
+                            value={hours}>
+                        </lightning-formatted-number> <br/>
+                    Minutos: <lightning-formatted-number 
+                            value={minutes}>
+                        </lightning-formatted-number> <br/>
+                    Segundos: <lightning-formatted-number 
+                            value={seconds}>
+                        </lightning-formatted-number> <br/>
+                </p>
+            </lightning-layout-item>
+            
+            <lightning-layout-item title="Play" >
+                <c-cronometro-boton-component 
+                icon="utility:play" type="init" onbuttonclick={handleEvent} >
+                </c-cronometro-boton-component>
+            </lightning-layout-item>
+            
+            <lightning-layout-item title="Pause" >
+                <c-cronometro-boton-component 
+                icon="utility:pause" type="hold" onbuttonclick={handleEvent} >
+                </c-cronometro-boton-component>
+            </lightning-layout-item>
+            
+            <lightning-layout-item title="Stop" >
+                <c-cronometro-boton-component 
+                icon="utility:stop" type="reset" onbuttonclick={handleEvent} >
+                </c-cronometro-boton-component>
+            </lightning-layout-item>
+        </lightning-layout>
+    </lightning-card>
+</template>
