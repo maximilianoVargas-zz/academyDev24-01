@@ -1,0 +1,8 @@
+<template>
+    <lightning-card title="Chronometer" icon-name="utility:date_time">
+        <c-chronometer-button type-button="Play" button-icon="utility:play" onclickbutton={handlePlay}></c-chronometer-button>
+        <c-chronometer-button type-button="Pause" button-icon="utility:pause" onclickbutton={handlePause}></c-chronometer-button>
+        <c-chronometer-button type-button="Stop" button-icon="utility:stop" onclickbutton={handleStop}></c-chronometer-button>
+        <c-chronometer-timer timer={time}></c-chronometer-timer>
+    </lightning-card>
+</template>

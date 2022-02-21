@@ -1,0 +1,20 @@
+<template>
+    <lightning-card title="Cases" icon-name="utility:cases">
+        <div class="slds-m-around_medium">
+            <template if:true={cases.data}>
+                <lightning-datatable
+                    class= "table"
+                    key-field="Id"
+                    show-row-number-column
+                    data={cases.data}
+                    columns={columns}
+                    onsave={handleCloseCase}
+                    draft-values={draftValues}>
+                </lightning-datatable>
+            </template>
+            <template if:true={cases.error}>
+                Error getting case records
+            </template>            
+        </div>
+    </lightning-card>
+</template>
