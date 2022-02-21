@@ -1,0 +1,14 @@
+<template>
+    <lightning-card title="Buttons" icon-name="action:user_activation"> 
+        <div style="background: white;padding: 20px;border-radius: 6px;">
+            <template if:true={showStartBtn}>
+                <lightning-button icon-name="utility:play" label="Start" onclick={start} style="margin-left: 145px;"></lightning-button>
+            </template>
+            <template if:false={showStartBtn}>
+                <lightning-button icon-name="utility:stop" label="Stop" onclick={stop} style="margin-left: 145px;"></lightning-button>
+            </template>
+            
+            <lightning-button icon-name="utility:refresh" label="Reset" onclick={reset} style="margin-left: 10px;"></lightning-button>
+        </div>
+    </lightning-card>
+</template>

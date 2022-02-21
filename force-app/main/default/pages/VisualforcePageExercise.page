@@ -1,0 +1,20 @@
+<apex:page controller="VisualforcePageExerciseController">
+    
+    <apex:form >
+        <apex:pageBlock title="Account List" id="account_list">
+            <!-- Accounts List -->
+            <apex:pageBlockTable value="{! accounts }" var="anAccount">
+                <apex:column value="{! anAccount.Name }">
+                </apex:column>
+				<apex:column >
+                    <apex:inputTextarea value="{! anAccount.MessageBody__c }"/>
+                </apex:column>
+            </apex:pageBlockTable>
+        </apex:pageBlock>
+        
+        <apex:pageBlock >
+            <apex:commandButton value="Create messages from text fields" action="{! saveMessage }" reRender="account_list"/>
+    	</apex:pageBlock>
+    </apex:form>
+    
+</apex:page>
