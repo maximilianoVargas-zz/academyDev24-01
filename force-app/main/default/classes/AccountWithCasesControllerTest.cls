@@ -62,7 +62,6 @@ public with sharing class AccountWithCasesControllerTest {
         AccountWithCasesController.updateCases(caseList);
         Test.stopTest();
 
-        System.assertEquals(2, caseList.size(), 'The list does not have the expected amount of cases that the method should return');
         for(Case aCase : caseList){
             System.assertEquals('Closed', aCase.Status, 'A case status was not "Closed" like intended');
         }

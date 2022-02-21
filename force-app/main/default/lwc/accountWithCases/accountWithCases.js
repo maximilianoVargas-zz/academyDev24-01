@@ -46,24 +46,6 @@ export default class CloseCases extends LightningElement {
         updateCases({cases: selected}).then(result => {
             this.message = result;
             this.error = undefined;
-            // if(this.message !== undefined || this.message !== '' || result!==undefined || result !== '' ) {
-            //     const toastEvent = new ShowToastEvent({
-            //         title: "Record Updated",
-            //         message: "A Closing Reason has been updated",
-            //         variant: "success"
-            //     });
-            //     this.dispatchEvent(toastEvent);
-                
-            // } else {
-
-            //     const toastErrorEvent = new ShowToastEvent({
-            //         title: "Record Not Updated",
-            //         message: "A Closing Reason Must Be Submited And the Field Selected",
-            //         variant: "error"
-            //     });
-            //     this.dispatchEvent(toastErrorEvent);
-
-            // }
         })
         .catch(error => {
             this.message = undefined;
