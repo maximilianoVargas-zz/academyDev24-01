@@ -1,0 +1,12 @@
+<template>
+    <lightning-datatable
+        class= "table"
+        key-field="id"
+        data={cases.data}
+        show-row-number-column
+        row-number-offset={rowOffset}
+        columns={columns}
+        onsave={handleSave}
+    >
+    </lightning-datatable>    
+</template>
