@@ -1,0 +1,29 @@
+<template>
+    <lightning-card title="Controls" icon-name="action:upload">
+        <lightning-layout>
+          <lightning-layout-item flexibility="auto" padding="around-small">
+            <lightning-button
+            if:true={showStartBtn}
+              label="Start"
+              icon-name="utility:dash"
+              onclick={handleStartTimer}>
+            </lightning-button>
+          </lightning-layout-item>
+          <lightning-layout-item flexibility="auto" padding="around-small">
+            <lightning-button
+            if:false={showStartBtn}
+              label="Stop"
+              icon-name="utility:dash"
+              onclick={handleStopTimer}>
+            </lightning-button>
+          </lightning-layout-item>
+          <lightning-layout-item flexibility="auto" padding="around-small">
+            <lightning-button
+              label="Reset"
+              icon-name="utility:dash"
+              onclick={handleResetTimer}>
+            </lightning-button>
+          </lightning-layout-item>
+        </lightning-layout>
+      </lightning-card>
+</template>

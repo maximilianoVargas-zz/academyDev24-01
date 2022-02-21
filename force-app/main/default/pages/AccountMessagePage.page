@@ -1,0 +1,25 @@
+<apex:page controller="AccountMessageController" sidebar="false">
+    <apex:form >
+        <apex:pageBlock >
+            <apex:pageblockSection title="All Accounts" collapsible="false" columns="2">
+                <apex:pageBlockTable value="{!wrapperAccounts}" var="accWrap" id="table" title="All Accounts">
+                    <apex:column headerValue="CheckBox">
+                        <apex:inputCheckbox value="{!accWrap.isChecked}"/>
+                    </apex:column>
+                    <apex:column headerValue="Account Names">
+                        <apex:inputField value="{!accWrap.anAccount.Name}"/>
+                    </apex:column>         
+                </apex:pageBlockTable>   
+            </apex:pageblockSection>
+            <apex:pageblockSection title="Description" collapsible="false">
+                <apex:inputText value="{!messageDescription}"/>
+            </apex:pageblockSection>
+                <apex:pageBlockButtons >
+                     <apex:commandButton action="{! save }" value="Save" />
+                </apex:pageBlockButtons>
+            
+        </apex:pageBlock>
+    </apex:form>
+    <apex:pageMessages id="showmsg"></apex:pageMessages>
+   
+</apex:page>

@@ -1,0 +1,15 @@
+
+<template>
+    <lightning-card title="Timer" icon-name="custom:custom95">
+    <div style="background: white;padding: 20px;border-radius: 6px;">
+        <div style="font-size: 20px;text-align:center;">{timeVal}</div>
+
+        <c-stop-watch-controls
+            class="slds-show slds-is-relative"
+            onstartevent={start}
+            onstopevent={stop}
+            onresetevent={reset}>
+        </c-stop-watch-controls>
+    </div>
+    </lightning-card>
+</template>
