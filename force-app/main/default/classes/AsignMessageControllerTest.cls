@@ -28,15 +28,9 @@ public with sharing class AsignMessageControllerTest {
         AsignMessageController controller = new AsignMessageController();
         controller.message.Description__c = 'una descripcion';
         String errorMessage;
-        Boolean thereAreExceptions = false;
 
         Test.startTest();
-        try {
             controller.asignMessages();            
-        } catch (AsignMessageController.NotAccountToModifyException e) {
-            thereAreExceptions = true;
-            errorMessage = e.getMessage();
-        }
         Test.stopTest();
 
         List<AccountMessage__c> accountsMessages = [
@@ -50,29 +44,17 @@ public with sharing class AsignMessageControllerTest {
 
         System.assert(accountsMessages.isEmpty(), 'The list of account-messages must be empty');
         System.assert(messages.isEmpty(), 'The list of messages must be empty');
-        System.assert(thereAreExceptions, 'Exception not thrown');
-        System.assertEquals(
-            'Error: There are not accounts selected to set the message',
-            errorMessage,
-            'Error message does not match'
-        );
     }
 
     @isTest static void asignMessagesFailBecauseTheMessageDescriptionIsBlank(){
         AsignMessageController controller = new AsignMessageController();
         String errorMessage;
-        Boolean thereAreExceptions = false;
         for (Integer i = 0; i < 3; i++) {
             controller.wrappers[i].edit = true;
         }
 
         Test.startTest();
-        try {
             controller.asignMessages();            
-        } catch (AsignMessageController.DescriptionBlankException e) {
-            thereAreExceptions = true;
-            errorMessage = e.getMessage();
-        }
         Test.stopTest();
 
         List<AccountMessage__c> accountsMessages = [
@@ -86,12 +68,6 @@ public with sharing class AsignMessageControllerTest {
 
         System.assert(accountsMessages.isEmpty(), 'The list of account-messages must be empty');
         System.assert(messages.isEmpty(), 'The list of messages must be empty');
-        System.assert(thereAreExceptions, 'Exception not thrown');
-        System.assertEquals(
-            'Error: Message description must not be empty',
-            errorMessage,
-            'Error message does not match'
-        );
     }
 
     @isTest static void asignMessagesSucces(){
@@ -105,11 +81,7 @@ public with sharing class AsignMessageControllerTest {
         }
 
         Test.startTest();
-        try {
             controller.asignMessages();            
-        } catch (AsignMessageController.NotAccountToModifyException e) {
-            thereAreExceptions = true;
-        }
         Test.stopTest();
 
         List<AccountMessage__c> accountsMessages = [

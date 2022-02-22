@@ -19,11 +19,9 @@ public with sharing class AsignMessageController {
 
     public void asignMessages(){
         Savepoint sp = Database.setSavepoint();
-        Message__c message = this.message;
+        Message__c message = new Message__c(Description__c = this.message.Description__c);
         if (message.Description__c == '') {
-            throw new AsignMessageController.DescriptionBlankException(
-                'Error: Message description must not be empty'
-            );
+            ApexPages.addmessage(new ApexPages.message(ApexPages.severity.ERROR,'Message description must not be empty'));
         } else {
             insert message;
             Boolean theAreTrueWrappers = false;
@@ -38,18 +36,16 @@ public with sharing class AsignMessageController {
             }
             if (!theAreTrueWrappers) {
                 Database.rollback(sp);
-                throw new AsignMessageController.NotAccountToModifyException(
-                    'Error: There are not accounts selected to set the message'
-                );
+                ApexPages.addmessage(new ApexPages.message(ApexPages.severity.ERROR,'There are not accounts selected to set the message'));
             } else{
                 for (Account anAccount : accountsToAddMessage) {
                     accountsMessages.add(new AccountMessage__c(Account__c = anAccount.Id, Message__c = message.Id));
                 }
                 insert accountsMessages;
                 this.message = new Message__c(Description__c = '');
+                ApexPages.addmessage(new ApexPages.message(ApexPages.severity.CONFIRM,'Message added'));
             }
-        }
-        
+        }        
     }
 
     public class AccountWrapper{
@@ -61,14 +57,4 @@ public with sharing class AsignMessageController {
             this.edit = edit;
         }
     }
-
-    public class NotAccountToModifyException extends Exception{
-
-    }
-
-    public class DescriptionBlankException extends Exception{
-
-    }
-
-    
 }

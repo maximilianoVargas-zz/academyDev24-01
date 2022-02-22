@@ -1,5 +1,6 @@
 <apex:page controller="AsignMessageController">
     <apex:pageBlock>
+        <apex:pageMessages></apex:pageMessages>
         <apex:form>
             <apex:pageBlockSection>
                 <apex:pageBlockTable value="{! wrappers}" var="w">
