@@ -1,0 +1,14 @@
+<template>
+    <lightning-card>
+        <div style="height: 300px" slot="title">
+            <lightning-datatable
+                key-field="id"
+                data={cases.data}
+                columns={columns}
+                onsave={handleSave}
+                show-row-number-column
+                >
+            </lightning-datatable>
+        </div>
+    </lightning-card>
+</template>
