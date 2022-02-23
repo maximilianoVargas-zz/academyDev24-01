@@ -1,0 +1,38 @@
+.container{
+    width: 25rem;
+}
+
+lightning-card {
+    
+}
+
+.cronometer-display{
+    display: flex;
+    align-items: center;
+    width: 23rem;
+    height: 5rem;
+    background-color: #1798c1;
+    margin: 1rem;
+}
+
+.space{
+    width: 7rem;
+    height: 4rem;
+    background-color: black;
+    color: aliceblue;
+    margin: 0.5rem;
+    font-size: 4rem;
+    padding: 0;
+    text-align: center;
+    line-height: 4rem;
+}
+
+.buttons-container {
+    display: flex;
+    width: 100%;
+}
+
+.button-container {
+    width: 33%;
+    text-align: center;
+}

@@ -1,0 +1,33 @@
+<template>
+    <div class="container">
+        <lightning-card title="Cronometer">
+            <div onaction={handleClick}
+            >
+                <div 
+                    class="cronometer-display"
+                >
+                    <div class="space">{dhoras}{horas}</div>
+                    <div class="space">{dminutos}{minutos}</div>
+                    <div class="space">{dsegundos}{segundos}</div>
+                </div>
+                <div class="buttons-container">
+                    <div class="button-container">
+                        <c-simplebutton 
+                            label="play">
+                        </c-simplebutton>
+                    </div>
+                    <div class="button-container">
+                        <c-simplebutton 
+                            label="pause">
+                        </c-simplebutton>
+                    </div>
+                    <div class="button-container">
+                        <c-simplebutton 
+                            label="stop">
+                        </c-simplebutton>
+                    </div>
+                </div>
+            </div>
+        </lightning-card>    
+    </div>
+</template>
