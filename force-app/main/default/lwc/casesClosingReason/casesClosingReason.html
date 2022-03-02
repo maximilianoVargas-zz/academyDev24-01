@@ -1,0 +1,19 @@
+<!-- sldsValidatorIgnore -->
+<template>
+    <lightning-card title="Cases" icon-name="custom:custom63">
+        <div class="slds-m-around_medium">
+            <template if:true={cases.data}>
+                <lightning-datatable
+                    key-field="Id"
+                    data={cases.data}
+                    columns={columns}
+                    onsave={handleSave}
+                    draft-values={draftValues}>
+                </lightning-datatable>
+            </template>
+            <template if:true={cases.error}>
+                <!-- handle Apex error -->
+            </template>
+        </div>
+    </lightning-card>    
+</template>
