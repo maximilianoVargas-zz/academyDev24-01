@@ -1,0 +1,36 @@
+<template>
+    <lightning-card title="Cronometer" icon-name="utility:clock">
+        <p class="slds-text-align_center slds-var-m-vertical_medium">            
+            Timer: {timeCronometer}
+        </p>
+        <lightning-layout>
+            <lightning-layout-item flexibility="auto" padding="around-small">
+                <c-controls-cronometer
+                class="sdls-show sdls-is-relative"
+                label="Play"
+                icon = "utility:play"
+                data-command="play"
+                onclick={handleCommand}>
+                </c-controls-cronometer>                
+            </lightning-layout-item>
+            <lightning-layout-item flexibility="auto" padding="around-small">
+                <c-controls-cronometer
+                class="sdls-show sdls-is-relative"
+                label="Stop"
+                icon = "utility:stop"
+                data-command="stop"
+                onclick={handleCommand}>
+                </c-controls-cronometer>                
+            </lightning-layout-item>
+            <lightning-layout-item flexibility="auto" padding="around-small">
+                <c-controls-cronometer
+                class="sdls-show sdls-is-relative"
+                label="Reset"
+                icon = "utility:refresh"
+                data-command="reset"
+                onclick={handleCommand}>
+                </c-controls-cronometer>                
+            </lightning-layout-item>
+        </lightning-layout>
+    </lightning-card>
+</template>
